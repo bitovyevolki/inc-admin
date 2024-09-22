@@ -38,7 +38,7 @@ export const Layout = ({ children, withSidebar = false }: Props) => {
         {withSidebar ? (
           <div style={{ display: 'flex' }}>
             <Sidebar />
-            <div style={{ padding: '40px' }}>{children}</div>
+            {children}
           </div>
         ) : (
           children
