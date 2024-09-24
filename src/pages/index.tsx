@@ -12,7 +12,6 @@ const HomePage: NextPageWithLayout = (props: any) => {
     <div {...props}>
       login
       <div>
-        {' '}
         <Link href={RouterPaths.USERS}>
           <Button>to users</Button>
         </Link>
