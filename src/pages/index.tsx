@@ -1,23 +1,28 @@
 import { ReactElement } from 'react'
 
 import { Layout } from '@/src/shared/ui/layout/Layout'
-import { Button } from '@bitovyevolki/ui-kit-int'
-import Link from 'next/link'
-
-import { RouterPaths } from '../shared/config/router.paths'
 import { NextPageWithLayout } from './_app'
+import { SignInForm } from '@/src/features/auth/signIn'
+import { GetServerSideProps } from 'next'
 
 const HomePage: NextPageWithLayout = (props: any) => {
   return (
     <div {...props}>
-      login
-      <div>
-        <Link href={RouterPaths.USERS}>
-          <Button>to users</Button>
-        </Link>
-      </div>
+      <SignInForm />
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const locale = context.req.cookies['next-language'] || 'en'
+  const messages = (await import(`../locales/${locale}.json`)).default
+
+  return {
+    props: {
+      messages,
+      locale,
+    },
+  }
 }
 
 HomePage.getLayout = function getLayout(page: ReactElement) {
