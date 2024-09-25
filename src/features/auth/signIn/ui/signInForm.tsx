@@ -7,14 +7,14 @@ import { useTranslations } from 'next-intl'
 import s from './signInForm.module.scss'
 import { SignInFormData, signInSchema } from '../model/schema/signInSchema'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
-// import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod'
 // import { useSignInMutation } from '../../service/auth.service';
 // import { SignInResponseError } from '../../service/auth.types';
 
 export const SignInForm = () => {
   // Uncomment the following lines if you have a mutation hook
   // const [signIn, { isLoading }] = useSignInMutation();
-  //   const t = useTranslations('Signin')
+  const t = useTranslations('Signin')
   const router = useRouter()
 
   const {
@@ -23,8 +23,7 @@ export const SignInForm = () => {
     handleSubmit,
     setError,
   } = useForm<SignInFormData>({
-    // Uncomment this if you're using Zod for validation
-    // resolver: zodResolver(signInSchema),
+    resolver: zodResolver(signInSchema),
   })
 
   const onSubmit: SubmitHandler<SignInFormData> = async data => {
@@ -40,7 +39,6 @@ export const SignInForm = () => {
     }
   }
 
-  // Uncomment this to show a loader when signing in
   // if (isLoading) {
   //   return <RoundLoader variant={'large'} />;
   // }
@@ -48,43 +46,28 @@ export const SignInForm = () => {
   return (
     <div className={s.wrapper}>
       <Card className={s.card}>
-        {/* <Typography variant={'h2'}>{t('title')}</Typography> */}
+        <Typography variant={'h2'}>{t('title')}</Typography>
         <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={s.input}>
-            <FormInput
-              control={control} // Uncomment if using react-hook-form
-              //   label={t('email')}
-              name="email"
-            />
-            {errors.email && (
-              <Typography className={s.error} variant={'caption'}>
-                {errors.email.message}
-              </Typography>
-            )}
+            <FormInput control={control} label={`${t('email')}`} name={'email'} />
           </div>
           <div className={s.input}>
             <FormInput
-              control={control} // Uncomment if using react-hook-form
-              //   label={t('password')}
-              name="password"
-              type="password"
+              control={control}
+              label={`${t('password')}`}
+              name={'password'}
+              type={'password'}
             />
-            {errors.password && (
+            {errors.root && (
               <Typography className={s.error} variant={'caption'}>
-                {errors.password.message}
+                {errors.root.message}
               </Typography>
             )}
-            <Link className={s.link} href="forgot-password">
-              {/* <Typography variant={'body2'}>{t('forgot')}</Typography> */}
-            </Link>
           </div>
           <div className={s.buttons}>
-            <Button fullWidth type="submit" variant="primary">
-              {/* {t('signin')} */}
+            <Button fullWidth type={'submit'} variant={'primary'}>
+              {t('signin')}
             </Button>
-            <Typography className={s.text} variant={'body2'}>
-              {/* {t('have-account')} */}
-            </Typography>
           </div>
         </form>
       </Card>
