@@ -1,18 +1,21 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
+
+import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
+import { useMutation } from '@apollo/client'
 import { Button, Card, FormInput, Typography } from '@bitovyevolki/ui-kit-int'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
+
 import s from './signInForm.module.scss'
-import { SignInFormData, signInSchema } from '../model/schema/signInSchema'
-import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@apollo/client'
+
 import { SIGN_IN } from '../api/signIn.service'
+import { SignInFormData, signInSchema } from '../model/schema/signInSchema'
 
 export const SignInForm = () => {
   const t = useTranslations('Signin')
   const router = useRouter()
-  const [login, { data, loading, error }] = useMutation(SIGN_IN)
+  const [login, { data, error, loading }] = useMutation(SIGN_IN)
 
   const {
     control,

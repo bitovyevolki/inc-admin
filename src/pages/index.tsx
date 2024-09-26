@@ -1,9 +1,10 @@
 import { ReactElement } from 'react'
 
-import { Layout } from '@/src/shared/ui/layout/Layout'
-import { NextPageWithLayout } from './_app'
 import { SignInForm } from '@/src/features/auth/signIn'
+import { Layout } from '@/src/shared/ui/layout/Layout'
 import { GetServerSideProps } from 'next'
+
+import { NextPageWithLayout } from './_app'
 
 const HomePage: NextPageWithLayout = (props: any) => {
   return (
@@ -19,8 +20,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   return {
     props: {
-      messages,
       locale,
+      messages,
     },
   }
 }
