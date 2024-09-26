@@ -28,7 +28,6 @@ export const SignInForm = () => {
       await login({ variables: { email: data.email, password: data.password } })
       router.push('/users')
     } catch (error) {
-      console.log(error)
       setError('root', { message: 'Login failed' })
     }
   }

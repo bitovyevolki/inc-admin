@@ -1,4 +1,4 @@
-import s from './RoundLoader.module.scss'
+import s from './RoundLoader.scss'
 
 interface IProps {
   variant: 'large' | 'small'
