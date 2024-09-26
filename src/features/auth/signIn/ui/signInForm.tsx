@@ -1,21 +1,18 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { RouterPaths } from '@/src/shared/config/router.paths'
 import { Button, Card, FormInput, Typography } from '@bitovyevolki/ui-kit-int'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 import s from './signInForm.module.scss'
 import { SignInFormData, signInSchema } from '../model/schema/signInSchema'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { zodResolver } from '@hookform/resolvers/zod'
-// import { useSignInMutation } from '../../service/auth.service';
-// import { SignInResponseError } from '../../service/auth.types';
+import { useMutation } from '@apollo/client'
+import { SIGN_IN } from '../api/signIn.service'
 
 export const SignInForm = () => {
-  // Uncomment the following lines if you have a mutation hook
-  // const [signIn, { isLoading }] = useSignInMutation();
   const t = useTranslations('Signin')
   const router = useRouter()
+  const [login, { data, loading, error }] = useMutation(SIGN_IN)
 
   const {
     control,
@@ -28,20 +25,17 @@ export const SignInForm = () => {
 
   const onSubmit: SubmitHandler<SignInFormData> = async data => {
     try {
-      // Uncomment the following line if you have a sign-in mutation
-      // await signIn(data).unwrap();
-      // Redirect on successful sign-in
-      //   router.push(RouterPaths.PERSONAL_INFO)
+      await login({ variables: { email: data.email, password: data.password } })
+      router.push('/users')
     } catch (error) {
-      // Uncomment this if you are handling sign-in errors
-      // const err = error as SignInResponseError;
-      // setError('root', { message: err.data.messages });
+      console.log(error)
+      setError('root', { message: 'Login failed' })
     }
   }
 
-  // if (isLoading) {
-  //   return <RoundLoader variant={'large'} />;
-  // }
+  if (loading) {
+    return <RoundLoader variant={'large'} />
+  }
 
   return (
     <div className={s.wrapper}>
