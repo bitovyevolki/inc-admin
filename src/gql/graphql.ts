@@ -359,6 +359,7 @@ export type GetAllUsersQuery = {
   __typename?: 'Query'
   getUsers: {
     __typename?: 'UsersPaginationModel'
+    pagination: { __typename?: 'PaginationModel'; totalCount: number }
     users: Array<{
       __typename?: 'User'
       userName: string
@@ -493,6 +494,14 @@ export const GetAllUsersDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pagination' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
+                  },
+                },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'users' },

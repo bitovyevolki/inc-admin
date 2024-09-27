@@ -3,5 +3,6 @@ export enum RouterPaths {
   POSTS = '/posts',
   SIGN_IN = '/',
   STATISTICS = '/statistics',
+  USER = '/user',
   USERS = '/users',
 }
