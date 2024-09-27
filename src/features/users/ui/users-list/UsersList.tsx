@@ -39,20 +39,24 @@ export const UsersList = () => {
     changeQueryHandler('pageSize', pageSize)
   }
 
+  const totalCount = data?.getUsers.pagination.totalCount
+
   return (
     <div className={s.users}>
       <div className={s.topBox}>
         <Input />
         <Select onChange={() => {}} options={[]} value={''} variant={'large'} />
       </div>
-      <UsersTable data={data} />
-      <Pagination
-        onChangePage={onChangePageHandler}
-        onChangePortionSize={onChangePageSizeHandler}
-        page={Number(page)}
-        portionSize={Number(pageSize)}
-        totalCount={100}
-      />
+      <UsersTable data={data} loading={loading} />
+      {totalCount && (
+        <Pagination
+          onChangePage={onChangePageHandler}
+          onChangePortionSize={onChangePageSizeHandler}
+          page={Number(page)}
+          portionSize={Number(pageSize)}
+          totalCount={data?.getUsers.pagination.totalCount}
+        />
+      )}
     </div>
   )
 }
