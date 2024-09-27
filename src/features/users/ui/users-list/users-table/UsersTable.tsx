@@ -1,8 +1,10 @@
 import { GetAllUsersQuery } from '@/src/gql/graphql'
 import { BlockIcon, EllipsisIcon } from '@/src/shared/assets/icons'
+import { RouterPaths } from '@/src/shared/config/router.paths'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { getDateViewWithDots } from '@/src/shared/utils/date'
 import { Table } from '@bitovyevolki/ui-kit-int'
+import Link from 'next/link'
 
 import s from './UsersTable.module.scss'
 
@@ -39,7 +41,9 @@ export const UsersTable = ({ data, loading }: IProps) => {
                 {u.userBan?.reason && <BlockIcon />} <span>{u.id}</span>
               </Table.Cell>
               <Table.Cell>{u.userName}</Table.Cell>
-              <Table.Cell>{u.email}</Table.Cell>
+              <Table.Cell>
+                <Link href={`${RouterPaths.USER}/${u.id}`}>{u.userName}</Link>
+              </Table.Cell>
               <Table.Cell>{getDateViewWithDots(u.createdAt)}</Table.Cell>
               <Table.Cell>
                 <EllipsisIcon className={s.icon} />
