@@ -15,7 +15,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
   '\n  mutation signIn($email: String!, $password: String!) {\n    loginAdmin(email: $email, password: $password) {\n      logged\n    }\n  }\n':
     types.SignInDocument,
-  '\n  query getAllUsers(\n    $pageNumber: Int\n    $pageSize: Int\n    $sortBy: String\n    $sortDirection: SortDirection\n    $searchTerm: String\n  ) {\n    getUsers(\n      pageNumber: $pageNumber\n      pageSize: $pageSize\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n    ) {\n      users {\n        userName\n        email\n        id\n        createdAt\n        userBan {\n          reason\n        }\n      }\n    }\n  }\n':
+  '\n  query getAllUsers(\n    $pageNumber: Int\n    $pageSize: Int\n    $sortBy: String\n    $sortDirection: SortDirection\n    $searchTerm: String\n  ) {\n    getUsers(\n      pageNumber: $pageNumber\n      pageSize: $pageSize\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n    ) {\n      pagination {\n        totalCount\n      }\n      users {\n        userName\n        email\n        id\n        createdAt\n        userBan {\n          reason\n        }\n      }\n    }\n  }\n':
     types.GetAllUsersDocument,
 }
 
@@ -43,8 +43,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query getAllUsers(\n    $pageNumber: Int\n    $pageSize: Int\n    $sortBy: String\n    $sortDirection: SortDirection\n    $searchTerm: String\n  ) {\n    getUsers(\n      pageNumber: $pageNumber\n      pageSize: $pageSize\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n    ) {\n      users {\n        userName\n        email\n        id\n        createdAt\n        userBan {\n          reason\n        }\n      }\n    }\n  }\n'
-): (typeof documents)['\n  query getAllUsers(\n    $pageNumber: Int\n    $pageSize: Int\n    $sortBy: String\n    $sortDirection: SortDirection\n    $searchTerm: String\n  ) {\n    getUsers(\n      pageNumber: $pageNumber\n      pageSize: $pageSize\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n    ) {\n      users {\n        userName\n        email\n        id\n        createdAt\n        userBan {\n          reason\n        }\n      }\n    }\n  }\n']
+  source: '\n  query getAllUsers(\n    $pageNumber: Int\n    $pageSize: Int\n    $sortBy: String\n    $sortDirection: SortDirection\n    $searchTerm: String\n  ) {\n    getUsers(\n      pageNumber: $pageNumber\n      pageSize: $pageSize\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n    ) {\n      pagination {\n        totalCount\n      }\n      users {\n        userName\n        email\n        id\n        createdAt\n        userBan {\n          reason\n        }\n      }\n    }\n  }\n'
+): (typeof documents)['\n  query getAllUsers(\n    $pageNumber: Int\n    $pageSize: Int\n    $sortBy: String\n    $sortDirection: SortDirection\n    $searchTerm: String\n  ) {\n    getUsers(\n      pageNumber: $pageNumber\n      pageSize: $pageSize\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n    ) {\n      pagination {\n        totalCount\n      }\n      users {\n        userName\n        email\n        id\n        createdAt\n        userBan {\n          reason\n        }\n      }\n    }\n  }\n']
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {}

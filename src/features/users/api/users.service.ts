@@ -15,6 +15,9 @@ export const GET_ALL_USERS = gql(/* GraphQL */ `
       sortDirection: $sortDirection
       searchTerm: $searchTerm
     ) {
+      pagination {
+        totalCount
+      }
       users {
         userName
         email
