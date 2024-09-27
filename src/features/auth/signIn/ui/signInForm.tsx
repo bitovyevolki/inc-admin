@@ -29,6 +29,8 @@ export const SignInForm = () => {
   const onSubmit: SubmitHandler<SignInFormData> = async data => {
     try {
       await login({ variables: { email: data.email, password: data.password } })
+      localStorage.setItem('username', data.email)
+      localStorage.setItem('password', data.password)
       router.push('/users')
     } catch (error) {
       console.log(error)

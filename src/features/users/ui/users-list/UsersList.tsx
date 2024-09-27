@@ -16,10 +16,9 @@ export const UsersList = () => {
   const page = searchParams.get('page') ?? 1
   const pageSize = searchParams.get('pageSize') ?? 10
 
-  const { data } = useQuery(GET_ALL_USERS, {
+  const { data, error, loading } = useQuery(GET_ALL_USERS, {
     variables: { pageNumber: Number(page), pageSize: Number(pageSize) },
   })
-
   const createQueryStringHandler = (name: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString())
 
