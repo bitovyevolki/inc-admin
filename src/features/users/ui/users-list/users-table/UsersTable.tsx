@@ -6,14 +6,15 @@ import { getDateViewWithDots } from '@/src/shared/utils/date'
 import { Table } from '@bitovyevolki/ui-kit-int'
 import Link from 'next/link'
 
-import s from './UsersTable.module.scss'
+import s from './Userstable.module.scss'
 
 interface IProps {
   data?: GetAllUsersQuery
   loading: boolean
+  onSortChange: (column: string) => void;
 }
 
-export const UsersTable = ({ data, loading }: IProps) => {
+export const UsersTable = ({ data, loading, onSortChange }: IProps) => {
   if (loading) {
     return (
       <div className={s.loader}>
@@ -27,9 +28,9 @@ export const UsersTable = ({ data, loading }: IProps) => {
       <Table.Head>
         <Table.Row>
           <Table.HeadCell>User ID</Table.HeadCell>
-          <Table.HeadCell>Username</Table.HeadCell>
+          <Table.HeadCell onClick={() => onSortChange('userName')}>Username</Table.HeadCell>
           <Table.HeadCell>Profile link</Table.HeadCell>
-          <Table.HeadCell>Date added</Table.HeadCell>
+          <Table.HeadCell onClick={() => onSortChange('createdAt')}>Date added</Table.HeadCell>
           <Table.HeadCell></Table.HeadCell>
         </Table.Row>
       </Table.Head>
