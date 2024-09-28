@@ -1,0 +1,6 @@
+export enum UserContentType {
+  FOLLOWERS = 'FOLLOWERS',
+  FOLLOWING = 'FOLLOWING',
+  PAYMENTS = 'PAYMENTS',
+  UPLOADED = 'UPLOADED',
+}

@@ -1,0 +1,24 @@
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+  margin: 48px auto 0;
+
+  .image {
+    position: relative;
+    width: calc(25% - 12px);
+    height: 300px;
+  }
+}
