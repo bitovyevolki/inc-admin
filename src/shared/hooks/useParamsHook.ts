@@ -6,16 +6,20 @@ export const useParamsHook = () => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const createQueryStringHandler = (name: string, value: string) => {
+  const createQueryString = (newParams: Record<string, number | string>) => {
     const params = new URLSearchParams(searchParams.toString())
 
-    params.set(name, value)
+    Object.entries(newParams).forEach(([key, value]) => {
+      params.set(key, String(value))
+    })
 
     return params.toString()
   }
 
-  const changeQueryHandler = (name: string, value: number | string) => {
-    router.push(pathname + '?' + createQueryStringHandler(name, String(value)))
+  const changeQueryHandler = (newParams: Record<string, number | string>) => {
+    const queryString = createQueryString(newParams)
+
+    router.push(`${pathname}?${queryString}`)
   }
 
   return { changeQueryHandler, searchParams }
