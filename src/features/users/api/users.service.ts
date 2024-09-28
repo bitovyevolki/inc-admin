@@ -7,6 +7,7 @@ export const GET_ALL_USERS = gql(/* GraphQL */ `
     $sortBy: String
     $sortDirection: SortDirection
     $searchTerm: String
+    $statusFilter: UserBlockStatus
   ) {
     getUsers(
       pageNumber: $pageNumber
@@ -14,6 +15,7 @@ export const GET_ALL_USERS = gql(/* GraphQL */ `
       sortBy: $sortBy
       sortDirection: $sortDirection
       searchTerm: $searchTerm
+      statusFilter: $statusFilter
     ) {
       users {
         userName
