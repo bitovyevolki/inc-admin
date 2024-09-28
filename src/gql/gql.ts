@@ -19,7 +19,7 @@ const documents = {
     types.GetUserDocument,
   '\n  query getUploadedFiles($userId: Int!, $endCursorId: Int) {\n    getPostsByUser(endCursorId: $endCursorId, userId: $userId) {\n      totalCount\n      items {\n        id\n        url\n      }\n    }\n  }\n':
     types.GetUploadedFilesDocument,
-  '\n  query getPayments($userId: Int!) {\n    getPaymentsByUser(userId: $userId) {\n      totalCount\n      items {\n        dateOfPayment\n        endDate\n        price\n        paymentType\n        type\n        id\n      }\n    }\n  }\n':
+  '\n  query getPayments($userId: Int!, $pageSize: Int, $page: Int) {\n    getPaymentsByUser(userId: $userId, pageSize: $pageSize, pageNumber: $page) {\n      totalCount\n      items {\n        dateOfPayment\n        endDate\n        price\n        paymentType\n        type\n        id\n      }\n    }\n  }\n':
     types.GetPaymentsDocument,
   '\n  query getAllUsers(\n    $pageNumber: Int\n    $pageSize: Int\n    $sortBy: String\n    $sortDirection: SortDirection\n    $searchTerm: String\n    $statusFilter: UserBlockStatus\n  ) {\n    getUsers(\n      pageNumber: $pageNumber\n      pageSize: $pageSize\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n      statusFilter: $statusFilter\n    ) {\n      pagination {\n        totalCount\n      }\n      users {\n        userName\n        email\n        id\n        createdAt\n        userBan {\n          reason\n        }\n      }\n    }\n  }\n':
     types.GetAllUsersDocument,
@@ -61,8 +61,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: '\n  query getPayments($userId: Int!) {\n    getPaymentsByUser(userId: $userId) {\n      totalCount\n      items {\n        dateOfPayment\n        endDate\n        price\n        paymentType\n        type\n        id\n      }\n    }\n  }\n'
-): (typeof documents)['\n  query getPayments($userId: Int!) {\n    getPaymentsByUser(userId: $userId) {\n      totalCount\n      items {\n        dateOfPayment\n        endDate\n        price\n        paymentType\n        type\n        id\n      }\n    }\n  }\n']
+  source: '\n  query getPayments($userId: Int!, $pageSize: Int, $page: Int) {\n    getPaymentsByUser(userId: $userId, pageSize: $pageSize, pageNumber: $page) {\n      totalCount\n      items {\n        dateOfPayment\n        endDate\n        price\n        paymentType\n        type\n        id\n      }\n    }\n  }\n'
+): (typeof documents)['\n  query getPayments($userId: Int!, $pageSize: Int, $page: Int) {\n    getPaymentsByUser(userId: $userId, pageSize: $pageSize, pageNumber: $page) {\n      totalCount\n      items {\n        dateOfPayment\n        endDate\n        price\n        paymentType\n        type\n        id\n      }\n    }\n  }\n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
