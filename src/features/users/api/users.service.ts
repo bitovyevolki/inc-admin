@@ -17,6 +17,9 @@ export const GET_ALL_USERS = gql(/* GraphQL */ `
       searchTerm: $searchTerm
       statusFilter: $statusFilter
     ) {
+      pagination {
+        totalCount
+      }
       users {
         userName
         email

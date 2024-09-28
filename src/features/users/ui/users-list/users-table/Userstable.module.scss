@@ -1,0 +1,23 @@
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 200px);
+}
+
+.cellWithIcon {
+  position: relative;
+
+  & > svg {
+    position: absolute;
+  }
+
+  & > span {
+    margin-left: 30px;
+  }
+}
+
+.icon {
+  cursor: pointer;
+}
