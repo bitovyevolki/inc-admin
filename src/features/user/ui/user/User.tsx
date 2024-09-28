@@ -1,10 +1,11 @@
 'use client'
 
+import { Scalars } from '@/src/gql/graphql'
 import { ArrowBackIcon } from '@/src/shared/assets/icons'
 import { RouterPaths } from '@/src/shared/config/router.paths'
 import { useQuery } from '@apollo/client'
 import { Typography } from '@bitovyevolki/ui-kit-int'
-import Link from 'next/link'
+import { Maybe } from 'graphql/jsutils/Maybe'
 import { useParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 
@@ -19,7 +20,7 @@ export const User = () => {
   const params = useParams<{ userId: string }>()
 
   const backHandler = () => {
-    router.back()
+    router.push(RouterPaths.USERS)
   }
 
   const userId = params?.userId
@@ -38,7 +39,7 @@ export const User = () => {
         </div>
         <PersonalInfo
           // @ts-ignore
-          avatar={userData?.profile?.avatars[0]?.url as string}
+          avatar={userData?.profile?.avatars[0]?.url as Maybe<Scalars['String']['output']>}
           createdAt={userData?.createdAt}
           email={userData?.email}
           userId={userData?.id}

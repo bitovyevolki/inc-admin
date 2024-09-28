@@ -1,2 +1,14 @@
 .payments {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 48px;
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 260px);
 }

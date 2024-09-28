@@ -29,8 +29,8 @@ export const GET_UPLOADED_FILES = gql(/* GraphQL */ `
 `)
 
 export const GET_PAYMENTS = gql(/* GraphQL */ `
-  query getPayments($userId: Int!) {
-    getPaymentsByUser(userId: $userId) {
+  query getPayments($userId: Int!, $pageSize: Int, $page: Int) {
+    getPaymentsByUser(userId: $userId, pageSize: $pageSize, pageNumber: $page) {
       totalCount
       items {
         dateOfPayment

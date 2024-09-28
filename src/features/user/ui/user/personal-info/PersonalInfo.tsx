@@ -1,12 +1,14 @@
 import AvatarImage from '@/public/images/avatar.webp'
+import { Scalars } from '@/src/gql/graphql'
 import { getDateViewWithDots } from '@/src/shared/utils/date'
 import { Typography } from '@bitovyevolki/ui-kit-int'
+import { Maybe } from 'graphql/jsutils/Maybe'
 import Image from 'next/image'
 
 import s from './PersonalInfo.module.scss'
 
 interface IProps {
-  avatar?: string
+  avatar?: Maybe<Scalars['String']['output']>
   createdAt: Date
   email?: string
   userId?: number
