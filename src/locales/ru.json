@@ -8,12 +8,12 @@
     "password": "Пароль",
     "registration": "Регистрация"
   },
-		"UsersList": {
-			"search": {
-				"placeholder": "Поиск",
-				"blocked": "Заблокированные",
-				"unblocked": "Разблокированные",
-				"not-selected": "Все"
-			}
-	}
+  "UsersList": {
+    "search": {
+      "placeholder": "Поиск",
+      "blocked": "Заблокированные",
+      "unblocked": "Разблокированные",
+      "not-selected": "Все"
+    }
+  }
 }
