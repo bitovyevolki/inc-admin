@@ -8,12 +8,12 @@
     "password": "Password",
     "registration": "Sign up"
   },
-	"UsersList": {
-		"search": {
-			"placeholder": "Search",
-			"blocked": "Blocked",
-			"unblocked": "Unblocked",
-			"not-selected": "Not selected"
-		}
-	}
+  "UsersList": {
+    "search": {
+      "placeholder": "Search",
+      "blocked": "Blocked",
+      "unblocked": "Unblocked",
+      "not-selected": "Not selected"
+    }
+  }
 }

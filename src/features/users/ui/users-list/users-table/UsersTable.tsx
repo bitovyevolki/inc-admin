@@ -6,12 +6,12 @@ import { getDateViewWithDots } from '@/src/shared/utils/date'
 import { Table } from '@bitovyevolki/ui-kit-int'
 import Link from 'next/link'
 
-import s from './Userstable.module.scss'
+import s from './UsersTable.module.scss'
 
 interface IProps {
   data?: GetAllUsersQuery
   loading: boolean
-  onSortChange: (column: string) => void;
+  onSortChange: (column: string) => void
 }
 
 export const UsersTable = ({ data, loading, onSortChange }: IProps) => {
