@@ -33,7 +33,6 @@ export const SignInForm = () => {
       localStorage.setItem('password', data.password)
       router.push('/users')
     } catch (error) {
-      console.log(error)
       setError('root', { message: 'Login failed' })
     }
   }

@@ -1,11 +1,12 @@
 import { ReactElement } from 'react'
 
+import { User } from '@/src/features/user'
 import { Layout } from '@/src/shared/ui/layout/Layout'
 
 import { NextPageWithLayout } from '../../_app'
 
 const UserPage: NextPageWithLayout = (props: any) => {
-  return <div />
+  return <User />
 }
 
 UserPage.getLayout = function getLayout(page: ReactElement) {

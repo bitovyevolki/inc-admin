@@ -1,0 +1,22 @@
+.user {
+  display: flex;
+}
+
+.emptyBox {
+  width: 300px;
+}
+
+.main {
+  width: 100%;
+  padding: 40px 60px 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.backArrowBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
