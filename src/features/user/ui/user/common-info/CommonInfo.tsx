@@ -5,6 +5,7 @@ import { IOption, Tabs } from '@bitovyevolki/ui-kit-int'
 import s from './CommonInfo.module.scss'
 
 import { UserContentType } from '../../../model/types/user'
+import { Payments } from './payments/Payments'
 import { UploadedFiles } from './uploaded-files/UploadedFiles'
 
 interface IProps {
@@ -31,7 +32,7 @@ export const CommonInfo = ({ userId }: IProps) => {
         <Tabs onChange={changeContentTypeHandler} options={tabsOptions} value={contentType}></Tabs>
       </div>
       {contentType === UserContentType.UPLOADED && <UploadedFiles userId={userId} />}
-      {contentType === UserContentType.PAYMENTS && <>payments</>}
+      {contentType === UserContentType.PAYMENTS && <Payments userId={userId} />}
       {contentType === UserContentType.FOLLOWERS && <>followers</>}
       {contentType === UserContentType.FOLLOWING && <>following</>}
     </div>

@@ -27,3 +27,19 @@ export const GET_UPLOADED_FILES = gql(/* GraphQL */ `
     }
   }
 `)
+
+export const GET_PAYMENTS = gql(/* GraphQL */ `
+  query getPayments($userId: Int!) {
+    getPaymentsByUser(userId: $userId) {
+      totalCount
+      items {
+        dateOfPayment
+        endDate
+        price
+        paymentType
+        type
+        id
+      }
+    }
+  }
+`)
