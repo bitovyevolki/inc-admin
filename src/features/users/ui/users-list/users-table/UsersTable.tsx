@@ -1,6 +1,6 @@
 import { REMOVE_USER } from '@/src/features/user/api/user.service'
 import { GetAllUsersQuery } from '@/src/gql/graphql'
-import { BlockIcon, EditUser, EllipsisIcon } from '@/src/shared/assets/icons'
+import { BlockIcon, EllipsisIcon } from '@/src/shared/assets/icons'
 import { RouterPaths } from '@/src/shared/config/router.paths'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { getDateViewWithDots } from '@/src/shared/utils/date'
@@ -13,6 +13,7 @@ import { toast } from 'react-toastify'
 import s from './UsersTable.module.scss'
 import { useState } from 'react'
 import { ViewUserModal } from '../user-modal'
+import { EditUser } from '@/src/shared/assets/icons/editUser'
 
 interface IProps {
   data?: GetAllUsersQuery
@@ -20,9 +21,17 @@ interface IProps {
   onSortChange: (column: string) => void
   sortBy: string
   sortDirection: 'asc' | 'desc'
+  refetch: () => void
 }
 
-export const UsersTable = ({ data, loading, onSortChange, sortBy, sortDirection }: IProps) => {
+export const UsersTable = ({
+  data,
+  loading,
+  onSortChange,
+  sortBy,
+  sortDirection,
+  refetch,
+}: IProps) => {
   const renderSortIcon = (column: string) => {
     if (sortBy === column) {
       return (
@@ -42,10 +51,8 @@ export const UsersTable = ({ data, loading, onSortChange, sortBy, sortDirection 
         <span className={`${s.smallIcon} ${s.desc}`}></span>
       </div>
     )
-  refetch: () => void
-}
+  }
 
-export const UsersTable = ({ data, loading, onSortChange, refetch }: IProps) => {
   const [removeUser] = useMutation<{ removeUser?: boolean }, { userId: number }>(REMOVE_USER, {})
   const [isViewUserModalOpen, setIsUserPostModalOpen] = useState<boolean>(false)
 

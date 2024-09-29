@@ -29,20 +29,23 @@
 }
 
 .sortIcons {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 2px;
   align-items: center;
+
   margin-left: 4px;
-  position: relative;
 }
 
 .smallIcon {
   width: 0;
   height: 0;
-  border-left: 4px solid transparent;
+
   border-right: 4px solid transparent;
   border-bottom: 5px solid var(--color-light-100);
+  border-left: 4px solid transparent;
 }
 
 .smallIcon.desc {
@@ -52,9 +55,10 @@
 .sortIcon {
   width: 0;
   height: 0;
-  border-left: 5px solid transparent;
+
   border-right: 5px solid transparent;
   border-bottom: 7px solid var(--color-light-100);
+  border-left: 5px solid transparent;
 }
 
 .sortIcon.desc {
@@ -63,7 +67,7 @@
 
 .active {
   border-bottom-color: var(--color-light-100);
-
+}
 
 .tBody {
   position: relative;
@@ -113,5 +117,4 @@
   display: flex;
   justify-content: space-around;
   width: 80%;
-
 }
