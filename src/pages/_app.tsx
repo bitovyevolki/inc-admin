@@ -2,6 +2,7 @@
 import type { AppProps } from 'next/app'
 
 import { ReactElement, ReactNode } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 import client from '@/apollo-client'
 import { ApolloProvider } from '@apollo/client'
@@ -33,6 +34,18 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         timeZone={'Europe/Moscow'}
       >
         {getLayout(<Component {...pageProps} />)}
+        <ToastContainer
+          autoClose={5000}
+          closeOnClick
+          draggable
+          hideProgressBar={false}
+          newestOnTop={false}
+          pauseOnFocusLoss
+          pauseOnHover
+          position={'bottom-right'}
+          rtl={false}
+          theme={'dark'}
+        />
       </NextIntlClientProvider>
     </ApolloProvider>
   )
