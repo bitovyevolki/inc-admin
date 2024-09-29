@@ -22,6 +22,10 @@ export const UploadedFiles = ({ userId }: IProps) => {
     )
   }
 
+  if (!isHasImages) {
+    return <Typography variant={'h2'}>The user does not have any publications yet</Typography>
+  }
+
   return (
     <div className={s.uploadedFiles}>
       <div className={s.images}>
@@ -35,9 +39,6 @@ export const UploadedFiles = ({ userId }: IProps) => {
           <div className={s.loader}>
             <RoundLoader variant={'large'} />
           </div>
-        )}
-        {!isHasImages && (
-          <Typography variant={'h2'}>The user does not have any publications yet</Typography>
         )}
       </div>
     </div>

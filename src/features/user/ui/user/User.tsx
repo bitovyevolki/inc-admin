@@ -1,11 +1,9 @@
 'use client'
 
-import { Scalars } from '@/src/gql/graphql'
 import { ArrowBackIcon } from '@/src/shared/assets/icons'
 import { RouterPaths } from '@/src/shared/config/router.paths'
 import { useQuery } from '@apollo/client'
 import { Typography } from '@bitovyevolki/ui-kit-int'
-import { Maybe } from 'graphql/jsutils/Maybe'
 import { useParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 
@@ -17,17 +15,20 @@ import { PersonalInfo } from './personal-info/PersonalInfo'
 
 export const User = () => {
   const router = useRouter()
-  const params = useParams<{ userId: string }>()
+  const { userId } = useParams<{ userId: string }>()
+
+  const { data } = useQuery(GET_USER, { variables: { userId: Number(userId) ?? '' } })
 
   const backHandler = () => {
     router.push(RouterPaths.USERS)
   }
 
-  const userId = params?.userId
-
-  const { data } = useQuery(GET_USER, { variables: { userId: Number(userId) ?? '' } })
-
   const userData = data?.getUser
+
+  const avatar =
+    userData?.profile.avatars && userData?.profile.avatars.length > 0
+      ? userData?.profile?.avatars[0].url
+      : ''
 
   return (
     <div className={s.user}>
@@ -38,8 +39,7 @@ export const User = () => {
           <Typography variant={'body1'}>Back to Users List</Typography>
         </div>
         <PersonalInfo
-          // @ts-ignore
-          avatar={userData?.profile?.avatars[0]?.url as Maybe<Scalars['String']['output']>}
+          avatar={avatar}
           createdAt={userData?.createdAt}
           email={userData?.email}
           userId={userData?.id}

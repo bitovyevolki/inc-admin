@@ -32,7 +32,7 @@ export const Payments = ({ userId }: IProps) => {
 
   const payments = data?.getPaymentsByUser.items
 
-  const havePayments = payments && payments.length > 0
+  const isHasPayments = payments && payments.length > 0
 
   // if (error) {
   //   toast.error('My payments error')
@@ -46,7 +46,7 @@ export const Payments = ({ userId }: IProps) => {
     )
   }
 
-  if (!havePayments) {
+  if (!isHasPayments) {
     return (
       <div className={s.centerBox}>
         <Typography variant={'h2'}>{t('no-payments')}</Typography>
@@ -68,7 +68,7 @@ export const Payments = ({ userId }: IProps) => {
         </Table.Head>
         <Table.Body>
           {payments.map(p => (
-            <Table.Row key={p.id + Math.random()}>
+            <Table.Row key={p.id}>
               <Table.Cell>{getDateViewWithDots(new Date(p.dateOfPayment))}</Table.Cell>
               <Table.Cell>{getDateViewWithDots(new Date(p.endDate))}</Table.Cell>
               <Table.Cell>{p.price}</Table.Cell>
