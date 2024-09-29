@@ -18,6 +18,30 @@ interface IProps {
   data?: GetAllUsersQuery
   loading: boolean
   onSortChange: (column: string) => void
+  sortBy: string
+  sortDirection: 'asc' | 'desc'
+}
+
+export const UsersTable = ({ data, loading, onSortChange, sortBy, sortDirection }: IProps) => {
+  const renderSortIcon = (column: string) => {
+    if (sortBy === column) {
+      return (
+        <div className={s.sortIcons}>
+          {sortDirection === 'asc' ? (
+            <span className={`${s.sortIcon} ${s.active}`}></span>
+          ) : (
+            <span className={`${s.sortIcon} ${s.active} ${s.desc}`}></span>
+          )}
+        </div>
+      )
+    }
+
+    return (
+      <div className={s.sortIcons}>
+        <span className={s.smallIcon}></span>
+        <span className={`${s.smallIcon} ${s.desc}`}></span>
+      </div>
+    )
   refetch: () => void
 }
 
@@ -63,9 +87,13 @@ export const UsersTable = ({ data, loading, onSortChange, refetch }: IProps) => 
       <Table.Head>
         <Table.Row>
           <Table.HeadCell>User ID</Table.HeadCell>
-          <Table.HeadCell onClick={() => onSortChange('userName')}>Username</Table.HeadCell>
+          <Table.HeadCell onClick={() => onSortChange('userName')}>
+            <div className={s.sortableColumn}>Username{renderSortIcon('userName')}</div>
+          </Table.HeadCell>
           <Table.HeadCell>Profile link</Table.HeadCell>
-          <Table.HeadCell onClick={() => onSortChange('createdAt')}>Date added</Table.HeadCell>
+          <Table.HeadCell onClick={() => onSortChange('createdAt')}>
+            <div className={s.sortableColumn}>Date added{renderSortIcon('createdAt')}</div>
+          </Table.HeadCell>
           <Table.HeadCell></Table.HeadCell>
         </Table.Row>
       </Table.Head>

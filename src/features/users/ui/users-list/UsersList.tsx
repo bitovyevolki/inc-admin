@@ -115,7 +115,17 @@ export const UsersList = () => {
           />
         </div>
       </div>
+
+      <UsersTable
+        data={data}
+        loading={loading}
+        onSortChange={onSortChange}
+        sortBy={sortBy}
+        sortDirection={sortDirection as 'asc' | 'desc'}
+      />
+
       <UsersTable data={data} loading={loading} onSortChange={onSortChange} refetch={refetch} />
+
       {totalCount && (
         <Pagination
           onChangePage={onChangePageHandler}
