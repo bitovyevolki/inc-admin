@@ -43,3 +43,9 @@ export const GET_PAYMENTS = gql(/* GraphQL */ `
     }
   }
 `)
+
+export const REMOVE_USER = gql(/* GraphQL */ `
+  mutation removeUser($userId: Int!) {
+    removeUser(userId: $userId)
+  }
+`)
