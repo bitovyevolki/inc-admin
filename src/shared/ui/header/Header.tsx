@@ -45,6 +45,8 @@ export const Header = ({
   signUpSrc,
   title,
 }: HeaderProps) => {
+  console.log(selectedLanguage)
+
   return isAuth ? (
     <div className={s.header}>
       <Link className={s.nounderline} href={'/'}>

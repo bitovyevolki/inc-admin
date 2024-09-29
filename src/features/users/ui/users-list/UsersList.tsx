@@ -50,7 +50,7 @@ export const UsersList = () => {
   useEffect(() => {
     const timerId = setTimeout(() => {
       if (filterValue !== null) {
-        changeQueryHandler({ searchTerm: filterValue })
+        changeQueryHandler({ page: 1, searchTerm: filterValue })
       }
     }, 500)
 
@@ -83,7 +83,7 @@ export const UsersList = () => {
   }
 
   const onChangeBlocked = (statusFilter: string) => {
-    changeQueryHandler({ statusFilter: statusFilter })
+    changeQueryHandler({ page: 1, statusFilter: statusFilter })
   }
 
   const option = [
