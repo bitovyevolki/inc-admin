@@ -1,0 +1,25 @@
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.topBox {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  & > img {
+    border-radius: 50%;
+  }
+}
+
+.bottomBox {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.greyText {
+  color: var(--color-light-900);
+}

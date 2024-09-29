@@ -8,33 +8,33 @@
 
 .topBox {
   display: flex;
-	gap: 94px;
+  gap: 94px;
   width: 100%;
 }
 
 .search {
-	position: relative;
-	width: 100%;
+  position: relative;
+  width: 100%;
 
-	&:first-child {
-		width: 100%;
-	}
+  &:first-child {
+    width: 100%;
+  }
 
-	.input {
-		padding-left: 36px;
-	}
+  .input {
+    padding-left: 36px;
+  }
 
-	.searchIcon {
-		position: absolute;
-		top: 6px;
-		left: 12px;
-	}
+  .searchIcon {
+    position: absolute;
+    top: 6px;
+    left: 12px;
+  }
 }
 
 .select {
-	& button {
-		width: 254px;
-		box-sizing: border-box;
-		justify-content: start;
-	}
+  & button {
+    width: 254px;
+    box-sizing: border-box;
+    justify-content: start;
+  }
 }

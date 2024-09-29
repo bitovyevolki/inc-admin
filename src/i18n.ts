@@ -17,7 +17,6 @@ export const getI18nConfig = async (context: GetServerSidePropsContext) => {
     }
   } catch (error) {
     // toast.error('Error loading locale messages:')
-    console.log('Error loading locale messages:')
 
     return {
       locale,

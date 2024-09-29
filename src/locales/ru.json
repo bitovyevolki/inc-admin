@@ -8,12 +8,20 @@
     "password": "Пароль",
     "registration": "Регистрация"
   },
-		"UsersList": {
-			"search": {
-				"placeholder": "Поиск",
-				"blocked": "Заблокированные",
-				"unblocked": "Разблокированные",
-				"not-selected": "Все"
-			}
-	}
+  "UsersList": {
+    "search": {
+      "placeholder": "Поиск",
+      "blocked": "Заблокированные",
+      "unblocked": "Разблокированные",
+      "not-selected": "Все"
+    }
+  },
+  "UserPayments": {
+    "date-of-payment": "Дата Платежа",
+    "end-date-of-subscription": "Дата окончания подписки",
+    "price": "Цена",
+    "subscription-type": "Тип Подписки",
+    "payment-type": "Тип Платежа",
+    "no-payments": "У пользователя еще нет оплат"
+  }
 }

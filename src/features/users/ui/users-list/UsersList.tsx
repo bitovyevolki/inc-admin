@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { UserBlockStatus } from '@/src/gql/graphql'
+import { InputMaybe, SortDirection, UserBlockStatus } from '@/src/gql/graphql'
 import { SearchIcon } from '@/src/shared/assets/icons'
 import { useParamsHook } from '@/src/shared/hooks/useParamsHook'
 import { useQuery } from '@apollo/client'
@@ -18,22 +18,12 @@ export const UsersList = () => {
 
   const page = searchParams.get('page') ?? 1
   const pageSize = searchParams.get('pageSize') ?? 10
+  const sortBy = searchParams.get('sortBy') ?? 'userName'
+  const sortDirection = (searchParams.get('sortDirection') ?? 'asc') as InputMaybe<SortDirection>
   const searchTerm = searchParams.get('searchTerm')
   const statusFilter = searchParams.get('statusFilter') ?? 'all'
 
   const [filterValue, setFilterValue] = useState(searchTerm)
-
-  useEffect(() => {
-    const timerId = setTimeout(() => {
-      if (filterValue !== null) {
-        changeQueryHandler('searchTerm', filterValue)
-      }
-    }, 500)
-
-    return () => {
-      clearTimeout(timerId)
-    }
-  }, [changeQueryHandler, filterValue])
 
   const statusFilterValue = (() => {
     switch (statusFilter) {
@@ -46,31 +36,54 @@ export const UsersList = () => {
     }
   })()
 
-  const { data, error, loading } = useQuery(GET_ALL_USERS, {
+  const { data, loading } = useQuery(GET_ALL_USERS, {
     variables: {
       pageNumber: Number(page),
       pageSize: Number(pageSize),
       searchTerm,
+      sortBy,
+      sortDirection,
       statusFilter: statusFilterValue,
     },
   })
 
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      if (filterValue !== null) {
+        changeQueryHandler({ searchTerm: filterValue })
+      }
+    }, 500)
+
+    return () => {
+      clearTimeout(timerId)
+    }
+  }, [filterValue])
+
+  const onSortChange = (column: string) => {
+    const newDirection = sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc'
+
+    changeQueryHandler({
+      page: 1,
+      pageSize: pageSize,
+      sortBy: column,
+      sortDirection: newDirection,
+    })
+  }
+
   const onChangePageHandler = (page: number) => {
-    changeQueryHandler('page', String(page))
+    changeQueryHandler({ page: page })
   }
 
   const onChangePageSizeHandler = (pageSize: number) => {
-    changeQueryHandler('pageSize', String(pageSize))
+    changeQueryHandler({ page: 1, pageSize: pageSize })
   }
-
-  const totalCount = data?.getUsers.pagination.totalCount
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setFilterValue(e.currentTarget.value)
   }
 
-  const onChangeBlocked = (newBlockedValue: string) => {
-    changeQueryHandler('statusFilter', newBlockedValue)
+  const onChangeBlocked = (statusFilter: string) => {
+    changeQueryHandler({ statusFilter: statusFilter })
   }
 
   const option = [
@@ -78,6 +91,8 @@ export const UsersList = () => {
     { label: t('search.blocked'), value: 'blocked' },
     { label: t('search.unblocked'), value: 'unblocked' },
   ]
+
+  const totalCount = data?.getUsers.pagination.totalCount
 
   return (
     <div className={s.users}>
@@ -100,7 +115,7 @@ export const UsersList = () => {
           />
         </div>
       </div>
-      <UsersTable data={data} loading={loading} />
+      <UsersTable data={data} loading={loading} onSortChange={onSortChange} />
       {totalCount && (
         <Pagination
           onChangePage={onChangePageHandler}
