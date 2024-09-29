@@ -46,7 +46,13 @@ export const UsersList = () => {
         <Input />
         <Select onChange={() => {}} options={[]} value={''} variant={'large'} />
       </div>
-      <UsersTable data={data} loading={loading} onSortChange={onSortChange} />
+      <UsersTable
+        data={data}
+        loading={loading}
+        onSortChange={onSortChange}
+        sortBy={sortBy}
+        sortDirection={sortDirection as 'asc' | 'desc'}
+      />
       {totalCount && (
         <Pagination
           onChangePage={onChangePageHandler}
