@@ -36,7 +36,7 @@ export const UsersList = () => {
     }
   })()
 
-  const { data, loading } = useQuery(GET_ALL_USERS, {
+  const { data, loading, refetch } = useQuery(GET_ALL_USERS, {
     variables: {
       pageNumber: Number(page),
       pageSize: Number(pageSize),
@@ -115,6 +115,7 @@ export const UsersList = () => {
           />
         </div>
       </div>
+
       <UsersTable
         data={data}
         loading={loading}
@@ -122,6 +123,9 @@ export const UsersList = () => {
         sortBy={sortBy}
         sortDirection={sortDirection as 'asc' | 'desc'}
       />
+
+      <UsersTable data={data} loading={loading} onSortChange={onSortChange} refetch={refetch} />
+
       {totalCount && (
         <Pagination
           onChangePage={onChangePageHandler}
