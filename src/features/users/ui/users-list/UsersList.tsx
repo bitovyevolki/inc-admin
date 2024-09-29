@@ -120,9 +120,9 @@ export const UsersList = () => {
         data={data}
         loading={loading}
         onSortChange={onSortChange}
+        refetch={refetch}
         sortBy={sortBy}
         sortDirection={sortDirection as 'asc' | 'desc'}
-        refetch={refetch}
       />
 
       {totalCount && (

@@ -69,6 +69,8 @@ export const GET_FOLLOWING = gql(/* GraphQL */ `
         createdAt
       }
     }
+  }
+`)
 
 export const REMOVE_USER = gql(/* GraphQL */ `
   mutation removeUser($userId: Int!) {

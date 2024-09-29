@@ -1,36 +1,38 @@
+import { useState } from 'react'
+import { toast } from 'react-toastify'
+
 import { REMOVE_USER } from '@/src/features/user/api/user.service'
 import { GetAllUsersQuery } from '@/src/gql/graphql'
 import { BlockIcon, EllipsisIcon } from '@/src/shared/assets/icons'
+import { EditUser } from '@/src/shared/assets/icons/editUser'
 import { RouterPaths } from '@/src/shared/config/router.paths'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { getDateViewWithDots } from '@/src/shared/utils/date'
 import { useMutation, useQuery } from '@apollo/client'
 import { Button, Card, Table, Typography } from '@bitovyevolki/ui-kit-int'
-import Link from 'next/link'
 import * as Popover from '@radix-ui/react-popover'
-import { toast } from 'react-toastify'
+import Link from 'next/link'
 
 import s from './UsersTable.module.scss'
-import { useState } from 'react'
+
 import { ViewUserModal } from '../user-modal'
-import { EditUser } from '@/src/shared/assets/icons/editUser'
 
 interface IProps {
   data?: GetAllUsersQuery
   loading: boolean
   onSortChange: (column: string) => void
+  refetch: () => void
   sortBy: string
   sortDirection: 'asc' | 'desc'
-  refetch: () => void
 }
 
 export const UsersTable = ({
   data,
   loading,
   onSortChange,
+  refetch,
   sortBy,
   sortDirection,
-  refetch,
 }: IProps) => {
   const renderSortIcon = (column: string) => {
     if (sortBy === column) {
@@ -122,7 +124,7 @@ export const UsersTable = ({
                     <EllipsisIcon className={s.icon} />
                   </Popover.Trigger>
                   <Popover.Portal>
-                    <Popover.Content align="end" className={s.popoverContent} side="bottom">
+                    <Popover.Content align={'end'} className={s.popoverContent} side={'bottom'}>
                       <Card className={s.cardWrap}>
                         <div className={s.popoverItem} onClick={() => showUserModal()}>
                           <EditUser />
