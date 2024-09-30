@@ -13,7 +13,7 @@ import { Button, Card, Table, Typography } from '@bitovyevolki/ui-kit-int'
 import * as Popover from '@radix-ui/react-popover'
 import Link from 'next/link'
 
-import s from './UsersTable.module.scss'
+import s from './Userstable.module.scss'
 
 import { ViewUserModal } from '../user-modal'
 
@@ -92,7 +92,7 @@ export const UsersTable = ({
   }
 
   return (
-    <Table.Root>
+    <Table.Root className={s.userTable}>
       <Table.Head>
         <Table.Row>
           <Table.HeadCell>User ID</Table.HeadCell>
@@ -118,7 +118,7 @@ export const UsersTable = ({
                 <Link href={`${RouterPaths.USER}/${u.id}`}>{u.userName}</Link>
               </Table.Cell>
               <Table.Cell>{getDateViewWithDots(u.createdAt)}</Table.Cell>
-              <Table.Cell>
+              <Table.Cell className={s.menuCell}>
                 <Popover.Root>
                   <Popover.Trigger asChild>
                     <EllipsisIcon className={s.icon} />

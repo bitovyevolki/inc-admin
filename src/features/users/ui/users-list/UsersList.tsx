@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
 import { InputMaybe, SortDirection, UserBlockStatus } from '@/src/gql/graphql'
-import { SearchIcon } from '@/src/shared/assets/icons'
 import { useParamsHook } from '@/src/shared/hooks/useParamsHook'
 import { useQuery } from '@apollo/client'
 import { Input, Pagination, Select } from '@bitovyevolki/ui-kit-int'
@@ -81,6 +80,9 @@ export const UsersList = () => {
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setFilterValue(e.currentTarget.value)
   }
+  const handleOnClear = () => {
+    setFilterValue('')
+  }
 
   const onChangeBlocked = (statusFilter: string) => {
     changeQueryHandler({ page: 1, statusFilter: statusFilter })
@@ -100,11 +102,12 @@ export const UsersList = () => {
         <div className={s.search}>
           <Input
             className={s.input}
+            clear={handleOnClear}
             onChange={onChangeInput}
             placeholder={t('search.placeholder')}
+            type={'search'}
             value={filterValue || ''}
           />
-          <SearchIcon className={s.searchIcon} />
         </div>
         <div className={s.select}>
           <Select
