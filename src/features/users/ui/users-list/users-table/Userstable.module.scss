@@ -6,6 +6,17 @@
   width: 100%;
   height: calc(100vh - 200px);
 }
+.userTable {
+  table-layout: fixed;
+  width: 100%;
+}
+.userTable th,
+.userTable td {
+  width: 25%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
 .cellWithIcon {
   position: relative;
