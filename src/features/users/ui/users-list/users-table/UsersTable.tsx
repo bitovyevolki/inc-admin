@@ -16,6 +16,7 @@ import Link from 'next/link'
 import s from './Userstable.module.scss'
 
 import { ViewUserModal } from '../user-modal'
+import { DeleteUserModal } from '../user-modal/DeleteUserModal'
 
 interface IProps {
   data?: GetAllUsersQuery
@@ -134,15 +135,11 @@ export const UsersTable = ({
                           isOpen={isViewUserModalOpen}
                           onOpenChange={closeViewPostModalHandler}
                         >
-                          <div className={s.card}>
-                            <Typography as={'p'} variant={'body1'}>
-                              Are you sure you want to delete this post
-                            </Typography>
-                            <div className={s.buttonsContainer}>
-                              <Button onClick={() => handleDeleteUser(u.id)}>Yes</Button>
-                              <Button onClick={() => closeViewPostModalHandler()}>No</Button>
-                            </div>
-                          </div>
+                          <DeleteUserModal
+                            closeViewPostModalHandler={closeViewPostModalHandler}
+                            handleDeleteUser={handleDeleteUser}
+                            userId={u.id}
+                          />
                         </ViewUserModal>
                         <div className={s.popoverItem}>
                           <BlockIcon /> Ban in the system
