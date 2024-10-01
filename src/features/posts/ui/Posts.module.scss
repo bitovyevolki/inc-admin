@@ -1,0 +1,16 @@
+.container {
+	width: 100%;
+	padding: 24px;
+}
+
+.posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(234px, 1fr));
+  grid-gap: 12px;
+	margin-top: 36px;
+}
+
+.loading {
+	text-align: center;
+	padding: 30px;
+}
