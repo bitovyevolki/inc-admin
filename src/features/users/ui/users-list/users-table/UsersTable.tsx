@@ -16,7 +16,6 @@ import Link from 'next/link'
 import s from './Userstable.module.scss'
 
 import { ViewUserModal } from '../user-modal'
-import { BanUserModal } from '../user-modal/BanUserModal'
 import { DeleteUserModal } from '../user-modal/DeleteUserModal'
 import { ViewBanModal } from '../user-modal/ViewBanModal'
 
@@ -169,7 +168,11 @@ export const UsersTable = ({
                           open={isBanUserModalOpen}
                           title={'Ban'}
                         >
-                          <ViewBanModal closeBanUserModalHandler={closeBanUserModalHandler} />
+                          <ViewBanModal
+                            closeBanUserModalHandler={closeBanUserModalHandler}
+                            userId={currentUserId}
+                            refetch={refetch}
+                          />
                         </ModalWindow>
                         <div className={s.popoverItem}>
                           <EllipsisIcon />
