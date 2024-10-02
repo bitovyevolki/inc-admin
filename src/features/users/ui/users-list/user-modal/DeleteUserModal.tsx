@@ -18,7 +18,7 @@ export const DeleteUserModal: FC<DeleteUserModalProps> = ({
   return (
     <div className={s.card}>
       <Typography as={'p'} variant={'body1'}>
-        Are you sure you want to delete this post
+        Are you sure you want to delete this user?
       </Typography>
       <div className={s.buttonsContainer}>
         <Button onClick={() => handleDeleteUser(userId)}>Yes</Button>
