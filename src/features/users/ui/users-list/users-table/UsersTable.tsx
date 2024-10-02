@@ -9,14 +9,16 @@ import { RouterPaths } from '@/src/shared/config/router.paths'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { getDateViewWithDots } from '@/src/shared/utils/date'
 import { useMutation, useQuery } from '@apollo/client'
-import { Button, Card, Table, Typography } from '@bitovyevolki/ui-kit-int'
+import { Button, Card, ModalWindow, Table, Typography } from '@bitovyevolki/ui-kit-int'
 import * as Popover from '@radix-ui/react-popover'
 import Link from 'next/link'
 
 import s from './Userstable.module.scss'
 
 import { ViewUserModal } from '../user-modal'
+import { BanUserModal } from '../user-modal/BanUserModal'
 import { DeleteUserModal } from '../user-modal/DeleteUserModal'
+import { ViewBanModal } from '../user-modal/ViewBanModal'
 
 interface IProps {
   data?: GetAllUsersQuery
@@ -57,12 +59,14 @@ export const UsersTable = ({
   }
 
   const [removeUser] = useMutation<{ removeUser?: boolean }, { userId: number }>(REMOVE_USER, {})
-  const [isViewUserModalOpen, setIsUserPostModalOpen] = useState<boolean>(false)
+  const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState<boolean>(false)
+  const [isBanUserModalOpen, setIsBanUserModalOpen] = useState<boolean>(false)
+  const [currentUserId, setCurrentUserId] = useState<null | number>(null)
 
   const handleDeleteUser = async (userId: number) => {
     try {
       await removeUser({ variables: { userId } })
-      setIsUserPostModalOpen(false)
+      setIsDeleteUserModalOpen(false)
       refetch()
       toast.success('User deleted', { position: 'top-right' })
     } catch (error) {
@@ -73,11 +77,25 @@ export const UsersTable = ({
     }
   }
 
-  const showUserModal = () => {
-    setIsUserPostModalOpen(true)
+  const showDeleteUserModal = (userId: number) => {
+    setCurrentUserId(userId)
+    setIsDeleteUserModalOpen(true)
   }
-  const closeViewPostModalHandler = () => {
-    setIsUserPostModalOpen(false)
+
+  const closeDeleteUserModalHandler = () => {
+    setIsDeleteUserModalOpen(false)
+    setCurrentUserId(null)
+  }
+
+  const showBanUserModal = (userId: number) => {
+    setCurrentUserId(userId)
+    setIsBanUserModalOpen(true)
+  }
+
+  const closeBanUserModalHandler = () => {
+    setIsBanUserModalOpen(false)
+    setCurrentUserId(null)
+    console.log('ok')
   }
 
   if (loading) {
@@ -127,23 +145,32 @@ export const UsersTable = ({
                   <Popover.Portal>
                     <Popover.Content align={'end'} className={s.popoverContent} side={'bottom'}>
                       <Card className={s.cardWrap}>
-                        <div className={s.popoverItem} onClick={() => showUserModal()}>
+                        <div className={s.popoverItem} onClick={() => showDeleteUserModal(u.id)}>
                           <EditUser />
                           Delete user
                         </div>
                         <ViewUserModal
-                          isOpen={isViewUserModalOpen}
-                          onOpenChange={closeViewPostModalHandler}
+                          isOpen={isDeleteUserModalOpen}
+                          onOpenChange={closeDeleteUserModalHandler}
                         >
-                          <DeleteUserModal
-                            closeViewPostModalHandler={closeViewPostModalHandler}
-                            handleDeleteUser={handleDeleteUser}
-                            userId={u.id}
-                          />
+                          {currentUserId && (
+                            <DeleteUserModal
+                              closeViewPostModalHandler={closeDeleteUserModalHandler}
+                              handleDeleteUser={handleDeleteUser}
+                              userId={currentUserId}
+                            />
+                          )}
                         </ViewUserModal>
-                        <div className={s.popoverItem}>
+                        <div className={s.popoverItem} onClick={() => showBanUserModal(u.id)}>
                           <BlockIcon /> Ban in the system
                         </div>
+                        <ModalWindow
+                          onOpenChange={closeBanUserModalHandler}
+                          open={isBanUserModalOpen}
+                          title={'Ban'}
+                        >
+                          <ViewBanModal closeBanUserModalHandler={closeBanUserModalHandler} />
+                        </ModalWindow>
                         <div className={s.popoverItem}>
                           <EllipsisIcon />
                           More information
