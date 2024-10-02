@@ -20,6 +20,7 @@ const documents = {
     "\n  query getFollowers($userId: Int!, $pageSize: Int, $page: Int) {\n    getFollowers(userId: $userId, pageSize: $pageSize, pageNumber: $page) {\n      totalCount\n      items {\n        id\n        userId\n        userName\n        createdAt\n      }\n    }\n  }\n": types.GetFollowersDocument,
     "\n  query getFollowing($userId: Int!, $pageSize: Int, $page: Int) {\n    getFollowing(userId: $userId, pageSize: $pageSize, pageNumber: $page) {\n      totalCount\n      items {\n        id\n        userId\n        userName\n        createdAt\n      }\n    }\n  }\n": types.GetFollowingDocument,
     "\n  mutation removeUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n": types.RemoveUserDocument,
+    "\n  mutation unbanUser($userId: Int!) {\n    unbanUser(userId: $userId)\n  }\n": types.UnbanUserDocument,
     "\n  mutation banUser($banReason: String!, $userId: Int!) {\n    banUser(banReason: $banReason, userId: $userId)\n  }\n": types.BanUserDocument,
     "\n  query getAllUsers(\n    $pageNumber: Int\n    $pageSize: Int\n    $sortBy: String\n    $sortDirection: SortDirection\n    $searchTerm: String\n    $statusFilter: UserBlockStatus\n  ) {\n    getUsers(\n      pageNumber: $pageNumber\n      pageSize: $pageSize\n      sortBy: $sortBy\n      sortDirection: $sortDirection\n      searchTerm: $searchTerm\n      statusFilter: $statusFilter\n    ) {\n      pagination {\n        totalCount\n      }\n      users {\n        userName\n        email\n        id\n        createdAt\n        userBan {\n          reason\n        }\n      }\n    }\n  }\n": types.GetAllUsersDocument,
 };
@@ -66,6 +67,10 @@ export function gql(source: "\n  query getFollowing($userId: Int!, $pageSize: In
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation removeUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n"): (typeof documents)["\n  mutation removeUser($userId: Int!) {\n    removeUser(userId: $userId)\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation unbanUser($userId: Int!) {\n    unbanUser(userId: $userId)\n  }\n"): (typeof documents)["\n  mutation unbanUser($userId: Int!) {\n    unbanUser(userId: $userId)\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

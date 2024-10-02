@@ -1,22 +1,23 @@
 import { FC, ReactNode, useState } from 'react'
+import { toast } from 'react-toastify'
 
+import { useMutation } from '@apollo/client'
 import { Button, Select, Typography } from '@bitovyevolki/ui-kit-int'
 
 import s from './ViewUserModal.module.scss'
+
 import { BAN_USERS } from '../../../api/userban'
-import { useMutation } from '@apollo/client'
-import { toast } from 'react-toastify'
 
 export type BanUserModalProps = {
   closeBanUserModalHandler: () => void
-  userId: number
   refetch: () => void
+  userId: number
 }
 
 export const ViewBanModal: FC<BanUserModalProps> = ({
   closeBanUserModalHandler,
-  userId,
   refetch,
+  userId,
 }) => {
   const [selectedReason, setSelectedReason] = useState<string>('bad_behavior')
 
@@ -58,8 +59,8 @@ export const ViewBanModal: FC<BanUserModalProps> = ({
             value: 'another_reason',
           },
         ]}
-        variant={'large'}
         value={selectedReason}
+        variant={'large'}
       />
       <div className={s.buttonsContainer}>
         <Button

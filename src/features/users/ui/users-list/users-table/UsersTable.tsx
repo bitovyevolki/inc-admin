@@ -5,6 +5,7 @@ import { REMOVE_USER } from '@/src/features/user/api/user.service'
 import { GetAllUsersQuery } from '@/src/gql/graphql'
 import { BlockIcon, EllipsisIcon } from '@/src/shared/assets/icons'
 import { EditUser } from '@/src/shared/assets/icons/editUser'
+import { Unban } from '@/src/shared/assets/icons/unban'
 import { RouterPaths } from '@/src/shared/config/router.paths'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { getDateViewWithDots } from '@/src/shared/utils/date'
@@ -17,6 +18,7 @@ import s from './Userstable.module.scss'
 
 import { ViewUserModal } from '../user-modal'
 import { DeleteUserModal } from '../user-modal/DeleteUserModal'
+import { UnBanUserModal } from '../user-modal/UnBanUserModal'
 import { ViewBanModal } from '../user-modal/ViewBanModal'
 
 interface IProps {
@@ -60,6 +62,7 @@ export const UsersTable = ({
   const [removeUser] = useMutation<{ removeUser?: boolean }, { userId: number }>(REMOVE_USER, {})
   const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState<boolean>(false)
   const [isBanUserModalOpen, setIsBanUserModalOpen] = useState<boolean>(false)
+  const [unBanModalOpen, setUnBanModalOpen] = useState<boolean>(false)
   const [currentUserId, setCurrentUserId] = useState<null | number>(null)
 
   const handleDeleteUser = async (userId: number) => {
@@ -94,7 +97,16 @@ export const UsersTable = ({
   const closeBanUserModalHandler = () => {
     setIsBanUserModalOpen(false)
     setCurrentUserId(null)
-    console.log('ok')
+  }
+
+  const showUnBanUserModal = (userId: number) => {
+    setCurrentUserId(userId)
+    setUnBanModalOpen(true)
+  }
+
+  const closeUnBanUserModalHandler = () => {
+    setUnBanModalOpen(false)
+    setCurrentUserId(null)
   }
 
   if (loading) {
@@ -160,19 +172,41 @@ export const UsersTable = ({
                             />
                           )}
                         </ViewUserModal>
-                        <div className={s.popoverItem} onClick={() => showBanUserModal(u.id)}>
-                          <BlockIcon /> Ban in the system
+                        <div className={s.popoverItem}>
+                          {u.userBan?.reason ? (
+                            <div className={s.iconWrap} onClick={() => showUnBanUserModal(u.id)}>
+                              <Unban /> Un-ban
+                            </div>
+                          ) : (
+                            <div className={s.iconWrap} onClick={() => showBanUserModal(u.id)}>
+                              <BlockIcon /> Ban in the system
+                            </div>
+                          )}
                         </div>
+                        <ViewUserModal
+                          isOpen={unBanModalOpen}
+                          onOpenChange={closeUnBanUserModalHandler}
+                        >
+                          {currentUserId && (
+                            <UnBanUserModal
+                              closeUnBanUserModalHandler={closeUnBanUserModalHandler}
+                              refetch={refetch}
+                              userId={currentUserId}
+                            />
+                          )}
+                        </ViewUserModal>
                         <ModalWindow
                           onOpenChange={closeBanUserModalHandler}
                           open={isBanUserModalOpen}
                           title={'Ban'}
                         >
-                          <ViewBanModal
-                            closeBanUserModalHandler={closeBanUserModalHandler}
-                            userId={currentUserId}
-                            refetch={refetch}
-                          />
+                          {currentUserId !== null && (
+                            <ViewBanModal
+                              closeBanUserModalHandler={closeBanUserModalHandler}
+                              refetch={refetch}
+                              userId={currentUserId}
+                            />
+                          )}
                         </ModalWindow>
                         <div className={s.popoverItem}>
                           <EllipsisIcon />
