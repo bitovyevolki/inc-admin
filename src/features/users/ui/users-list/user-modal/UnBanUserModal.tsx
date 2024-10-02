@@ -26,7 +26,7 @@ export const UnBanUserModal: FC<UnBanUserModalProps> = ({
       await unbanUser({ variables: { userId } })
       toast.success('User unbanned successfully', { position: 'top-right' })
       closeUnBanUserModalHandler()
-      refetch() // Обновление данных после разблокировки
+      refetch()
     } catch (error) {
       toast.error('Failed to unban user', { position: 'top-right' })
     }
