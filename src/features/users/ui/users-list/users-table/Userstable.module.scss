@@ -39,47 +39,6 @@
   align-items: center;
 }
 
-.sortIcons {
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  align-items: center;
-
-  margin-left: 4px;
-}
-
-.smallIcon {
-  width: 0;
-  height: 0;
-
-  border-right: 4px solid transparent;
-  border-bottom: 5px solid var(--color-light-100);
-  border-left: 4px solid transparent;
-}
-
-.smallIcon.desc {
-  transform: rotate(180deg);
-}
-
-.sortIcon {
-  width: 0;
-  height: 0;
-
-  border-right: 5px solid transparent;
-  border-bottom: 7px solid var(--color-light-100);
-  border-left: 5px solid transparent;
-}
-
-.sortIcon.desc {
-  transform: rotate(180deg);
-}
-
-.active {
-  border-bottom-color: var(--color-light-100);
-}
-
 .tBody {
   position: relative;
 }

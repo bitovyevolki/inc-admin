@@ -8,7 +8,8 @@ import { EditUser } from '@/src/shared/assets/icons/editUser'
 import { RouterPaths } from '@/src/shared/config/router.paths'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { getDateViewWithDots } from '@/src/shared/utils/date'
-import { useMutation, useQuery } from '@apollo/client'
+import { renderSortIcon } from '@/src/shared/utils/render-sort-icons/render-sort-icons'
+import { useMutation } from '@apollo/client'
 import { Button, Card, Table, Typography } from '@bitovyevolki/ui-kit-int'
 import * as Popover from '@radix-ui/react-popover'
 import Link from 'next/link'
@@ -34,27 +35,6 @@ export const UsersTable = ({
   sortBy,
   sortDirection,
 }: IProps) => {
-  const renderSortIcon = (column: string) => {
-    if (sortBy === column) {
-      return (
-        <div className={s.sortIcons}>
-          {sortDirection === 'asc' ? (
-            <span className={`${s.sortIcon} ${s.active}`}></span>
-          ) : (
-            <span className={`${s.sortIcon} ${s.active} ${s.desc}`}></span>
-          )}
-        </div>
-      )
-    }
-
-    return (
-      <div className={s.sortIcons}>
-        <span className={s.smallIcon}></span>
-        <span className={`${s.smallIcon} ${s.desc}`}></span>
-      </div>
-    )
-  }
-
   const [removeUser] = useMutation<{ removeUser?: boolean }, { userId: number }>(REMOVE_USER, {})
   const [isViewUserModalOpen, setIsUserPostModalOpen] = useState<boolean>(false)
 
@@ -97,11 +77,15 @@ export const UsersTable = ({
         <Table.Row>
           <Table.HeadCell>User ID</Table.HeadCell>
           <Table.HeadCell onClick={() => onSortChange('userName')}>
-            <div className={s.sortableColumn}>Username{renderSortIcon('userName')}</div>
+            <div className={s.sortableColumn}>
+              Username{renderSortIcon('userName', sortBy, sortDirection)}
+            </div>
           </Table.HeadCell>
           <Table.HeadCell>Profile link</Table.HeadCell>
           <Table.HeadCell onClick={() => onSortChange('createdAt')}>
-            <div className={s.sortableColumn}>Date added{renderSortIcon('createdAt')}</div>
+            <div className={s.sortableColumn}>
+              Date added{renderSortIcon('createdAt', sortBy, sortDirection)}
+            </div>
           </Table.HeadCell>
           <Table.HeadCell></Table.HeadCell>
         </Table.Row>

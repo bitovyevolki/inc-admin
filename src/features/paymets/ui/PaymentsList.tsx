@@ -34,11 +34,26 @@ export const PaymentsList = () => {
   const onChangePageSizeHandler = (pageSize: number) => {
     changeQueryHandler({ page: 1, pageSize: pageSize })
   }
+  const onSortChange = (column: string) => {
+    const newDirection = sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc'
+
+    changeQueryHandler({
+      page: 1,
+      pageSize: pageSize,
+      sortBy: column,
+      sortDirection: newDirection,
+    })
+  }
 
   return (
     <div className={s.paymentsList}>
       <Input type={'search'} />
-      <PaymentsTable data={data?.getPayments?.items} />
+      <PaymentsTable
+        data={data?.getPayments?.items}
+        onSortChange={onSortChange}
+        sortBy={sortBy}
+        sortDirection={sortDirection as 'asc' | 'desc'}
+      />
       {totalCount && (
         <Pagination
           onChangePage={onChangePageHandler}
