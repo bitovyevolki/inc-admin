@@ -3,10 +3,12 @@ import { useRef, useState } from 'react'
 
 import { ViewBanModal } from '@/src/features/users/ui/users-list/user-modal/ViewBanModal'
 import { BlockIcon } from '@/src/shared/assets/icons'
+import { RouterPaths } from '@/src/shared/config/router.paths'
 import { ModalWindow, Typography } from '@bitovyevolki/ui-kit-int'
 import { ShowMore, ShowMoreRef } from '@re-dev/react-truncate'
 import moment from 'moment'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useLocale } from 'next-intl'
 
 import 'moment/locale/ru'
@@ -74,7 +76,7 @@ export const Post = ({ post, refetch }: Props) => {
       )}
 
       <div className={s.user}>
-        <div className={s.userAvatarAndName}>
+        <Link className={s.userAvatarAndName} href={`${RouterPaths.USER}/${post.postOwner.id}`}>
           {avatarUrl ? (
             <Image alt={'avatar'} className={s.avatar} height={36} src={avatarUrl} width={36} />
           ) : (
@@ -84,8 +86,10 @@ export const Post = ({ post, refetch }: Props) => {
             {userName.slice(0, 18)}
             {userName.length > 18 ? '...' : ''}
           </Typography>
+        </Link>
+        <div className={s.blockUnblockIcon} onClick={() => setIsOpenBanModal(true)}>
+          <BlockIcon />
         </div>
-        <BlockIcon onClick={() => setIsOpenBanModal(true)} />
       </div>
 
       <Typography className={s.date} variant={'caption'}>
@@ -119,6 +123,7 @@ export const Post = ({ post, refetch }: Props) => {
             closeBanUserModalHandler={() => setIsOpenBanModal(false)}
             refetch={refetch}
             userId={post.postOwner.id}
+            userName={post.postOwner.userName}
           />
         )}
       </ModalWindow>

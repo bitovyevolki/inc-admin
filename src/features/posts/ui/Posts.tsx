@@ -24,6 +24,12 @@ export const Posts = () => {
   const { data: newPostData } = useSubscription(POST_ADDED_SUBSCRIPTION)
 
   useEffect(() => {
+    if (!loading) {
+      refetch()
+    }
+  }, [])
+
+  useEffect(() => {
     if (newPostData && newPostData.postAdded) {
       setPosts(prev => [newPostData.postAdded, ...prev])
     }
