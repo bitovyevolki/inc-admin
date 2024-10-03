@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import { GET_PAYMENTS } from '@/src/features/user/api/user.service'
 import { useParamsHook } from '@/src/shared/hooks/useParamsHook'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
@@ -13,7 +15,7 @@ interface IProps {
 }
 
 export const Payments = ({ userId }: IProps) => {
-  const t = useTranslations('UserPayments')
+  const t = useTranslations('UserPage.t-payments')
 
   const { changeQueryHandler, searchParams } = useParamsHook()
 
@@ -34,9 +36,9 @@ export const Payments = ({ userId }: IProps) => {
 
   const isHasPayments = payments && payments.length > 0
 
-  // if (error) {
-  //   toast.error('My payments error')
-  // }
+  if (error) {
+    toast.error(`${t('fetch-error')}`)
+  }
 
   if (loading) {
     return (

@@ -144,9 +144,7 @@ export const UsersTable = ({
                 {u.userBan?.reason && <BlockIcon />} <span>{u.id}</span>
               </Table.Cell>
               <Table.Cell>{u.userName}</Table.Cell>
-              <Table.Cell>
-                <Link href={`${RouterPaths.USER}/${u.id}`}>{u.userName}</Link>
-              </Table.Cell>
+              <Table.Cell>{u.userName}</Table.Cell>
               <Table.Cell>{getDateViewWithDots(u.createdAt)}</Table.Cell>
               <Table.Cell className={s.menuCell}>
                 <Popover.Root>
@@ -208,10 +206,10 @@ export const UsersTable = ({
                             />
                           )}
                         </ModalWindow>
-                        <div className={s.popoverItem}>
+                        <Link className={s.popoverItem} href={`${RouterPaths.USER}/${u.id}`}>
                           <EllipsisIcon />
                           More information
-                        </div>
+                        </Link>
                       </Card>
                     </Popover.Content>
                   </Popover.Portal>

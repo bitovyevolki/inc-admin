@@ -15,7 +15,7 @@ export const useUploadedFiles = ({ userId }: IProps) => {
   const [lastImageId, setLastImageId] = useState(0)
   const [combinedImages, setCombinedImages] = useState<Pick<ImagePost, 'id' | 'url'>[]>([])
 
-  const { data, loading } = useQuery(GET_UPLOADED_FILES, {
+  const { data, error, loading } = useQuery(GET_UPLOADED_FILES, {
     variables: { endCursorId: lastImageId, userId },
   })
 
@@ -56,5 +56,5 @@ export const useUploadedFiles = ({ userId }: IProps) => {
     }
   }, [images])
 
-  return { combinedImages, loading }
+  return { combinedImages, error, loading }
 }
