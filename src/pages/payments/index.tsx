@@ -1,11 +1,12 @@
 import { ReactElement } from 'react'
 
+import { PaymentsList } from '@/src/features/paymets/ui/PaymentsList'
 import { Layout } from '@/src/shared/ui/layout/Layout'
 
 import { NextPageWithLayout } from '../_app'
 
 const PaymentsPage: NextPageWithLayout = (props: any) => {
-  return <div {...props}>payments</div>
+  return <PaymentsList {...props} />
 }
 
 PaymentsPage.getLayout = function getLayout(page: ReactElement) {

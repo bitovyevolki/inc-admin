@@ -6,16 +6,18 @@
   width: 100%;
   height: calc(100vh - 200px);
 }
+
 .userTable {
   table-layout: fixed;
   width: 100%;
 }
+
 .userTable th,
 .userTable td {
-  width: 25%;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
+  width: 25%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cellWithIcon {
@@ -128,4 +130,9 @@
   display: flex;
   justify-content: space-around;
   width: 80%;
+}
+
+.iconWrap {
+  display: flex;
+  gap: 10px;
 }
