@@ -9,12 +9,9 @@ import { Unban } from '@/src/shared/assets/icons/unban'
 import { RouterPaths } from '@/src/shared/config/router.paths'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { getDateViewWithDots } from '@/src/shared/utils/date'
-
 import { renderSortIcon } from '@/src/shared/utils/render-sort-icons/render-sort-icons'
-
 import { useMutation, useQuery } from '@apollo/client'
 import { Button, Card, ModalWindow, Table, Typography } from '@bitovyevolki/ui-kit-int'
-
 import * as Popover from '@radix-ui/react-popover'
 import Link from 'next/link'
 
