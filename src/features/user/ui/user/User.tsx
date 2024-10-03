@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client'
 import { Typography } from '@bitovyevolki/ui-kit-int'
 import { useParams } from 'next/navigation'
 import { useRouter } from 'next/router'
+import { useTranslations } from 'next-intl'
 
 import s from './User.module.scss'
 
@@ -14,6 +15,7 @@ import { CommonInfo } from './common-info/CommonInfo'
 import { PersonalInfo } from './personal-info/PersonalInfo'
 
 export const User = () => {
+  const t = useTranslations('UserPage')
   const router = useRouter()
   const { userId } = useParams<{ userId: string }>()
 
@@ -36,7 +38,7 @@ export const User = () => {
       <div className={s.main}>
         <div className={s.backArrowBox} onClick={backHandler}>
           <ArrowBackIcon />
-          <Typography variant={'body1'}>Back to Users List</Typography>
+          <Typography variant={'body1'}>{t('to-users-list')}</Typography>
         </div>
         <PersonalInfo
           avatar={avatar}

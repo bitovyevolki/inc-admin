@@ -6,6 +6,7 @@ import { Typography } from '@bitovyevolki/ui-kit-int'
 import { Maybe } from 'graphql/jsutils/Maybe'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 import s from './PersonalInfo.module.scss'
 
@@ -17,6 +18,8 @@ interface IProps {
 }
 
 export const PersonalInfo = ({ avatar, createdAt, userId, userName }: IProps) => {
+  const t = useTranslations('UserPage')
+
   return (
     <div className={s.userInfo}>
       <div className={s.topBox}>
@@ -35,13 +38,13 @@ export const PersonalInfo = ({ avatar, createdAt, userId, userName }: IProps) =>
       <div className={s.bottomBox}>
         <div>
           <Typography className={s.greyText} variant={'body2'}>
-            UserID
+            {t('id')}
           </Typography>
           <Typography variant={'body1'}>{userId}</Typography>
         </div>
         <div>
           <Typography className={s.greyText} variant={'body2'}>
-            Profile Creation Date
+            {t('creation-date')}
           </Typography>
           <Typography variant={'body1'}>{getDateViewWithDots(createdAt)}</Typography>
         </div>

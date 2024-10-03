@@ -16,12 +16,35 @@
       "not-selected": "Все"
     }
   },
-  "UserPayments": {
-    "date-of-payment": "Дата Платежа",
-    "end-date-of-subscription": "Дата окончания подписки",
-    "price": "Цена",
-    "subscription-type": "Тип Подписки",
-    "payment-type": "Тип Платежа",
-    "no-payments": "У пользователя еще нет оплат"
+  "UserPage": {
+    "to-users-list": "Вернуться к списку пользователей",
+    "id": "ID Пользователя",
+    "creation-date": "Дата создания профиля",
+    "uploaded": "Загруженные файлы",
+    "payments": "Платежи",
+    "followers": "Подписчики",
+    "following": "Подписки",
+    "t-uploaded": {
+      "no-publications": "У пользователя пока нет публикаций",
+      "fetch-error": "Ошибка получения данных"
+    },
+    "t-payments": {
+      "date-of-payment": "Дата Платежа",
+      "end-date-of-subscription": "Дата окончания подписки",
+      "price": "Цена, $",
+      "subscription-type": "Тип Подписки",
+      "payment-type": "Тип Платежа",
+      "no-payments": "У пользователя еще нет платежей",
+      "fetch-error": "Ошибка получения данных"
+    },
+    "t-followers": {
+      "id": "ID Пользователя",
+      "name": "Имя пользователя",
+      "profile-link": "Ссылка профиля",
+      "subs-date": "Дата подписки",
+      "fetch-error": "Ошибка получения данных",
+      "no-followers": "У пользователя еще нет подписчиков",
+      "no-followings": "Пользователь еще ни на кого не подписан"
+    }
   }
 }

@@ -1,7 +1,10 @@
+import { toast } from 'react-toastify'
+
 import { useUploadedFiles } from '@/src/features/user/lib/hooks/useUploadedFiles'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { Typography } from '@bitovyevolki/ui-kit-int'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 import s from './UploadedFiles.module.scss'
 
@@ -10,7 +13,9 @@ interface IProps {
 }
 
 export const UploadedFiles = ({ userId }: IProps) => {
-  const { combinedImages, loading } = useUploadedFiles({ userId })
+  const t = useTranslations('UserPage.t-uploaded')
+
+  const { combinedImages, error, loading } = useUploadedFiles({ userId })
 
   const isHasImages = combinedImages && combinedImages.length > 0
 
@@ -22,8 +27,12 @@ export const UploadedFiles = ({ userId }: IProps) => {
     )
   }
 
+  if (error) {
+    toast.error(`${t('fetch-error')}`)
+  }
+
   if (!isHasImages) {
-    return <Typography variant={'h2'}>The user does not have any publications yet</Typography>
+    return <Typography variant={'h2'}>{t('no-publications')}</Typography>
   }
 
   return (
