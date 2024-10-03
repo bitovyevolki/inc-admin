@@ -41,7 +41,6 @@ export const User = () => {
         <PersonalInfo
           avatar={avatar}
           createdAt={userData?.createdAt}
-          email={userData?.email}
           userId={userData?.id}
           userName={userData?.userName}
         />
