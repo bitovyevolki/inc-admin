@@ -17,6 +17,7 @@ export const GET_ALL_PAYMENTS = gql(/* GraphQL */ `
     ) {
       items {
         userName
+        userId
         avatars {
           url
           width
