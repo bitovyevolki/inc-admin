@@ -1,3 +1,14 @@
+.paymentTable {
+  table-layout: fixed;
+  width: 100%;
+}
+.paymentTable th,
+.paymentTable td {
+  width: 20%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 .userInfo {
   display: flex;
   flex-direction: row;
@@ -10,4 +21,20 @@
     height: 30px;
     border-radius: 50%;
   }
+}
+.sortableColumn {
+  display: flex;
+  align-items: center;
+}
+.noUsers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
 }

@@ -16,12 +16,35 @@
       "not-selected": "Not selected"
     }
   },
-  "UserPayments": {
-    "date-of-payment": "Date of Payment",
-    "end-date-of-subscription": "End date of subscription",
-    "price": "Price",
-    "subscription-type": "Subscription Type",
-    "payment-type": "Payment Type",
-    "no-payments": "The user doesn't have any payments yet"
+  "UserPage": {
+    "to-users-list": "Back to users list",
+    "id": "UserID",
+    "creation-date": "Profile Creation Date",
+    "uploaded": "Uploaded files",
+    "payments": "Payments",
+    "followers": "Followers",
+    "following": "Following",
+    "t-uploaded": {
+      "no-publications": "The user doesn't have any publications yet",
+      "fetch-error": "Fetch data error"
+    },
+    "t-payments": {
+      "date-of-payment": "Date of Payment",
+      "end-date-of-subscription": "End date of subscription",
+      "price": "Amount, $",
+      "subscription-type": "Subscription Type",
+      "payment-type": "Payment Type",
+      "no-payments": "The user doesn't have any payments yet",
+      "fetch-error": "Fetch data error"
+    },
+    "t-followers": {
+      "id": "User ID",
+      "name": "Username",
+      "profile-link": "Profile link",
+      "subs-date": "Subscription Date",
+      "fetch-error": "Fetch data error",
+      "no-followers": "The user doesn't have any followers yet",
+      "no-followings": "The user has not subscribed to anyone yet"
+    }
   }
 }
