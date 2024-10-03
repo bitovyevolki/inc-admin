@@ -12,12 +12,14 @@ export type BanUserModalProps = {
   closeBanUserModalHandler: () => void
   refetch: () => void
   userId: number
+  userName: string
 }
 
 export const ViewBanModal: FC<BanUserModalProps> = ({
   closeBanUserModalHandler,
   refetch,
   userId,
+  userName,
 }) => {
   const [selectedReason, setSelectedReason] = useState<string>('bad_behavior')
 
@@ -42,7 +44,7 @@ export const ViewBanModal: FC<BanUserModalProps> = ({
 
   return (
     <div className={s.card}>
-      <Typography variant={'body2'}>Are you sure you want to ban this user? </Typography>
+      <Typography variant={'body2'}>Are you sure you want to ban this user {userName}? </Typography>
       <Select
         onChange={handleSelectChange}
         options={[

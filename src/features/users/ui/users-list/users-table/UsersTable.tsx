@@ -12,7 +12,6 @@ import { getDateViewWithDots } from '@/src/shared/utils/date'
 
 import { renderSortIcon } from '@/src/shared/utils/render-sort-icons/render-sort-icons'
 
-
 import { useMutation, useQuery } from '@apollo/client'
 import { Button, Card, ModalWindow, Table, Typography } from '@bitovyevolki/ui-kit-int'
 
@@ -191,6 +190,7 @@ export const UsersTable = ({
                               closeBanUserModalHandler={closeBanUserModalHandler}
                               refetch={refetch}
                               userId={currentUserId}
+                              userName={u.userName}
                             />
                           )}
                         </ModalWindow>
