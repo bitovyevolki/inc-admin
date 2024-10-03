@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
+import { useParamsHook } from '@/src/shared/hooks/useParamsHook'
 import { IOption, Tabs } from '@bitovyevolki/ui-kit-int'
+import { useTranslations } from 'next-intl'
 
 import s from './CommonInfo.module.scss'
 
@@ -15,17 +17,21 @@ interface IProps {
 }
 
 export const CommonInfo = ({ userId }: IProps) => {
-  const [contentType, setContentType] = useState<UserContentType>(UserContentType.UPLOADED)
+  const t = useTranslations('UserPage')
+
+  const { changeQueryHandler, searchParams } = useParamsHook()
+
+  const contentType = searchParams.get('cont') ?? UserContentType.UPLOADED
 
   const tabsOptions: ({ disabled: boolean } & IOption)[] = [
-    { disabled: false, label: 'Uploaded files', value: UserContentType.UPLOADED },
-    { disabled: false, label: 'Payments', value: UserContentType.PAYMENTS },
-    { disabled: false, label: 'Followers', value: UserContentType.FOLLOWERS },
-    { disabled: false, label: 'Following', value: UserContentType.FOLLOWING },
+    { disabled: false, label: `${t('uploaded')} `, value: UserContentType.UPLOADED },
+    { disabled: false, label: `${t('payments')} `, value: UserContentType.PAYMENTS },
+    { disabled: false, label: `${t('followers')} `, value: UserContentType.FOLLOWERS },
+    { disabled: false, label: `${t('following')} `, value: UserContentType.FOLLOWING },
   ]
 
   const changeContentTypeHandler = (type: UserContentType | string) => {
-    setContentType(type as UserContentType)
+    changeQueryHandler({ cont: type })
   }
 
   return (

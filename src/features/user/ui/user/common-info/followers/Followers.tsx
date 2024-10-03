@@ -1,8 +1,13 @@
+import { toast } from 'react-toastify'
+
 import { GET_FOLLOWERS } from '@/src/features/user/api/user.service'
+import { RouterPaths } from '@/src/shared/config/router.paths'
 import { useParamsHook } from '@/src/shared/hooks/useParamsHook'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { useQuery } from '@apollo/client'
 import { Pagination, Table, Typography } from '@bitovyevolki/ui-kit-int'
+import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 import s from './Followers.module.scss'
 
@@ -11,6 +16,8 @@ interface IProps {
 }
 
 export const Followers = ({ userId }: IProps) => {
+  const t = useTranslations('UserPage.t-followers')
+
   const { changeQueryHandler, searchParams } = useParamsHook()
 
   const page = searchParams.get('page') ?? 1
@@ -30,10 +37,6 @@ export const Followers = ({ userId }: IProps) => {
 
   const isHasFollowers = followers && followers.length > 0
 
-  // if (error) {
-  //   toast.error('My followers error')
-  // }
-
   if (loading) {
     return (
       <div className={s.loader}>
@@ -42,10 +45,14 @@ export const Followers = ({ userId }: IProps) => {
     )
   }
 
+  if (error) {
+    toast.error(`${t('fetch-error')}`)
+  }
+
   if (!isHasFollowers) {
     return (
       <div className={s.centerBox}>
-        <Typography variant={'h2'}>The user does not have any followers yet</Typography>
+        <Typography variant={'h2'}>{t('no-followers')}</Typography>
       </div>
     )
   }
@@ -55,10 +62,10 @@ export const Followers = ({ userId }: IProps) => {
       <Table.Root>
         <Table.Head>
           <Table.Row>
-            <Table.HeadCell>User ID</Table.HeadCell>
-            <Table.HeadCell>Username</Table.HeadCell>
-            <Table.HeadCell>Profile link</Table.HeadCell>
-            <Table.HeadCell>Subscription Date</Table.HeadCell>
+            <Table.HeadCell>{t('id')}</Table.HeadCell>
+            <Table.HeadCell>{t('name')}</Table.HeadCell>
+            <Table.HeadCell>{t('profile-link')}</Table.HeadCell>
+            <Table.HeadCell>{t('subs-date')}</Table.HeadCell>
           </Table.Row>
         </Table.Head>
         <Table.Body>
@@ -66,7 +73,9 @@ export const Followers = ({ userId }: IProps) => {
             <Table.Row key={f.id}>
               <Table.Cell>{f.userId}</Table.Cell>
               <Table.Cell>{f.userName}</Table.Cell>
-              <Table.Cell>{f.userName}</Table.Cell>
+              <Table.Cell>
+                <Link href={`${RouterPaths.PUBLIC_USER}/${userId}`}>{f.userName}</Link>
+              </Table.Cell>
               <Table.Cell>{f.createdAt}</Table.Cell>
             </Table.Row>
           ))}
