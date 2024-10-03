@@ -1,6 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { Subscription } from '@/src/gql/graphql'
 import { useParamsHook } from '@/src/shared/hooks/useParamsHook'
 import { useQuery, useSubscription } from '@apollo/client'
 import { Input } from '@bitovyevolki/ui-kit-int'
@@ -17,11 +16,18 @@ export const Posts = () => {
   const [endCursorPostId, setEndCursorPostId] = useState(0)
 
   const [filterValue, setFilterValue] = useState(searchTerm)
+  const [posts, setPosts] = useState<PostItem[]>([])
   const { data, loading, refetch } = useQuery(GET_ALL_POSTS, {
     variables: { endCursorPostId, searchTerm },
   })
 
-  const [posts, setPosts] = useState<PostItem[]>([])
+  const { data: newPostData } = useSubscription(POST_ADDED_SUBSCRIPTION)
+
+  useEffect(() => {
+    if (newPostData && newPostData.postAdded) {
+      setPosts(prev => [newPostData.postAdded, ...prev])
+    }
+  }, [newPostData])
 
   useEffect(() => {
     setPosts([])

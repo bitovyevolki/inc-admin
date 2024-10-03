@@ -41,3 +41,38 @@ export const GET_ALL_POSTS = gql(/* GraphQL */ `
     }
   }
 `)
+
+export const POST_ADDED_SUBSCRIPTION = gql(/* GraphQL */ `
+  subscription onAddPostSubscription {
+    postAdded {
+      images {
+        url
+        id
+        createdAt
+        width
+        height
+      }
+      id
+      ownerId
+      description
+      createdAt
+      updatedAt
+      postOwner {
+        id
+        userName
+        firstName
+        lastName
+        avatars {
+          url
+        }
+      }
+      images {
+        url
+        id
+        createdAt
+        width
+        height
+      }
+    }
+  }
+`)
