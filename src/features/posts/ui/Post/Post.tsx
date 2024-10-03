@@ -1,8 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import { useRef, useState } from 'react'
 
+import { ViewBanModal } from '@/src/features/users/ui/users-list/user-modal/ViewBanModal'
 import { BlockIcon } from '@/src/shared/assets/icons'
-import { Typography } from '@bitovyevolki/ui-kit-int'
+import { ModalWindow, Typography } from '@bitovyevolki/ui-kit-int'
 import { ShowMore, ShowMoreRef } from '@re-dev/react-truncate'
 import moment from 'moment'
 import Image from 'next/image'
@@ -17,15 +18,17 @@ import { PhotoSlider } from '../PhotoSlider/PhotoSlider'
 
 type Props = {
   post: PostItem
+  refetch: () => void
 }
 
-export const Post = ({ post }: Props) => {
+export const Post = ({ post, refetch }: Props) => {
   const [isSmalText, setIsSmallText] = useState(true)
   const ref = useRef<ShowMoreRef>(null)
   const locale = useLocale()
   const toggleLines = () => {
     setIsSmallText(prev => !prev)
   }
+  const [isOpenBanModal, setIsOpenBanModal] = useState(false)
 
   const avatarUrl =
     post.postOwner.avatars && post.postOwner.avatars.length > 0
@@ -82,7 +85,7 @@ export const Post = ({ post }: Props) => {
             {userName.length > 18 ? '...' : ''}
           </Typography>
         </div>
-        <BlockIcon />
+        <BlockIcon onClick={() => setIsOpenBanModal(true)} />
       </div>
 
       <Typography className={s.date} variant={'caption'}>
@@ -104,6 +107,21 @@ export const Post = ({ post }: Props) => {
           </ShowMore>
         </div>
       </Typography>
+
+      <ModalWindow
+        className={s.modal}
+        onOpenChange={setIsOpenBanModal}
+        open={isOpenBanModal}
+        title={'Ban'}
+      >
+        {true && (
+          <ViewBanModal
+            closeBanUserModalHandler={() => setIsOpenBanModal(false)}
+            refetch={refetch}
+            userId={post.postOwner.id}
+          />
+        )}
+      </ModalWindow>
     </div>
   )
 }

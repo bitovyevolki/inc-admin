@@ -1,12 +1,13 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 
+import { Subscription } from '@/src/gql/graphql'
 import { useParamsHook } from '@/src/shared/hooks/useParamsHook'
-import { useQuery } from '@apollo/client'
+import { useQuery, useSubscription } from '@apollo/client'
 import { Input } from '@bitovyevolki/ui-kit-int'
 
 import s from './Posts.module.scss'
 
-import { GET_ALL_POSTS } from '../api/posts.service'
+import { GET_ALL_POSTS, POST_ADDED_SUBSCRIPTION } from '../api/posts.service'
 import { PostItem } from '../model/types/post'
 import { Post } from './Post/Post'
 
@@ -16,7 +17,7 @@ export const Posts = () => {
   const [endCursorPostId, setEndCursorPostId] = useState(0)
 
   const [filterValue, setFilterValue] = useState(searchTerm)
-  const { data, loading } = useQuery(GET_ALL_POSTS, {
+  const { data, loading, refetch } = useQuery(GET_ALL_POSTS, {
     variables: { endCursorPostId, searchTerm },
   })
 
@@ -79,7 +80,7 @@ export const Posts = () => {
       </div>
       <div className={s.posts}>
         {posts.map(el => (
-          <Post key={el.id} post={el} />
+          <Post key={el.id} post={el} refetch={refetch} />
         ))}
       </div>
       {loading && <div className={s.loading}>Loading...</div>}
