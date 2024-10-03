@@ -9,7 +9,6 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
 .userInfo {
   display: flex;
   flex-direction: row;
@@ -26,4 +25,16 @@
 .sortableColumn {
   display: flex;
   align-items: center;
+}
+.noUsers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
 }
