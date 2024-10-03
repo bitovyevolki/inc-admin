@@ -82,7 +82,7 @@ export const Posts = () => {
           <Post key={el.id} post={el} />
         ))}
       </div>
-      {<div className={s.loading}>Loading...</div>}
+      {loading && <div className={s.loading}>Loading...</div>}
     </div>
   )
 }
