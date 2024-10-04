@@ -1,45 +1,22 @@
-import { FC, ReactNode, useState } from 'react'
-import { toast } from 'react-toastify'
+import { FC, useState } from 'react'
 
-import { useMutation } from '@apollo/client'
 import { Button, Select, Typography } from '@bitovyevolki/ui-kit-int'
 
 import s from './ViewUserModal.module.scss'
 
-import { BAN_USERS } from '../../../api/userban'
+import { UserType } from '../../../model/types/users'
 
 export type BanUserModalProps = {
-  closeBanUserModalHandler: () => void
-  refetch: () => void
-  userId: number
+  handleBanUser: (value: string) => void
+  onCloseModal: () => void
   userName: string
 }
 
-export const ViewBanModal: FC<BanUserModalProps> = ({
-  closeBanUserModalHandler,
-  refetch,
-  userId,
-  userName,
-}) => {
+export const BanUserModal: FC<BanUserModalProps> = ({ handleBanUser, onCloseModal, userName }) => {
   const [selectedReason, setSelectedReason] = useState<string>('bad_behavior')
 
   const handleSelectChange = (value: string) => {
     setSelectedReason(value)
-  }
-
-  const [banUser] = useMutation<{ banUser: boolean }, { banReason: string; userId: number }>(
-    BAN_USERS
-  )
-
-  const handleBanUser = async () => {
-    try {
-      await banUser({ variables: { banReason: selectedReason, userId } })
-      toast.success('User banned successfully', { position: 'top-right' })
-      closeBanUserModalHandler()
-      refetch()
-    } catch (error) {
-      toast.error('Failed to ban user', { position: 'top-right' })
-    }
   }
 
   return (
@@ -67,12 +44,12 @@ export const ViewBanModal: FC<BanUserModalProps> = ({
       <div className={s.buttonsContainer}>
         <Button
           onClick={() => {
-            closeBanUserModalHandler()
+            onCloseModal()
           }}
         >
           No
         </Button>
-        <Button onClick={handleBanUser} variant={'outlined'}>
+        <Button onClick={() => handleBanUser(selectedReason)} variant={'outlined'}>
           Yes
         </Button>
       </div>

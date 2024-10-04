@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { useRef, useState } from 'react'
 
-import { ViewBanModal } from '@/src/features/users/ui/users-list/user-modal/ViewBanModal'
+import { BanUserModal } from '@/src/features/users/ui/users-list/user-modal/BanUserModal'
 import { BlockIcon } from '@/src/shared/assets/icons'
 import { RouterPaths } from '@/src/shared/config/router.paths'
 import { ModalWindow, Typography } from '@bitovyevolki/ui-kit-int'
@@ -20,10 +20,9 @@ import { PhotoSlider } from '../PhotoSlider/PhotoSlider'
 
 type Props = {
   post: PostItem
-  refetch: () => void
 }
 
-export const Post = ({ post, refetch }: Props) => {
+export const Post = ({ post }: Props) => {
   const [isSmalText, setIsSmallText] = useState(true)
   const ref = useRef<ShowMoreRef>(null)
   const locale = useLocale()
@@ -31,6 +30,10 @@ export const Post = ({ post, refetch }: Props) => {
     setIsSmallText(prev => !prev)
   }
   const [isOpenBanModal, setIsOpenBanModal] = useState(false)
+
+  const closeModal = () => {
+    setIsOpenBanModal(false)
+  }
 
   const avatarUrl =
     post.postOwner.avatars && post.postOwner.avatars.length > 0
@@ -118,14 +121,11 @@ export const Post = ({ post, refetch }: Props) => {
         open={isOpenBanModal}
         title={'Ban'}
       >
-        {true && (
-          <ViewBanModal
-            closeBanUserModalHandler={() => setIsOpenBanModal(false)}
-            refetch={refetch}
-            userId={post.postOwner.id}
-            userName={post.postOwner.userName}
-          />
-        )}
+        <BanUserModal
+          handleBanUser={() => setIsOpenBanModal(false)}
+          onCloseModal={closeModal}
+          userName={post.postOwner.userName}
+        />
       </ModalWindow>
     </div>
   )

@@ -92,7 +92,7 @@ export const Posts = () => {
       </div>
       <div className={s.posts}>
         {posts.map(el => (
-          <Post key={el.id} post={el} refetch={refetch} />
+          <Post key={el.id} post={el} />
         ))}
       </div>
       {loading && <div className={s.loading}>Loading...</div>}

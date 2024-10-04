@@ -10,17 +10,19 @@ import { RouterPaths } from '@/src/shared/config/router.paths'
 import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { getDateViewWithDots } from '@/src/shared/utils/date'
 import { renderSortIcon } from '@/src/shared/utils/render-sort-icons/render-sort-icons'
-import { useMutation, useQuery } from '@apollo/client'
-import { Button, Card, ModalWindow, Table, Typography } from '@bitovyevolki/ui-kit-int'
+import { useMutation } from '@apollo/client'
+import { Card, ModalWindow, Table } from '@bitovyevolki/ui-kit-int'
 import * as Popover from '@radix-ui/react-popover'
 import Link from 'next/link'
 
 import s from './Userstable.module.scss'
 
-import { ViewUserModal } from '../user-modal'
+import { UNBAN_USER } from '../../../api/user.unban'
+import { BAN_USERS } from '../../../api/userban'
+import { ModalNames, UserType } from '../../../model/types/users'
+import { BanUserModal } from '../user-modal/BanUserModal'
 import { DeleteUserModal } from '../user-modal/DeleteUserModal'
 import { UnBanUserModal } from '../user-modal/UnBanUserModal'
-import { ViewBanModal } from '../user-modal/ViewBanModal'
 
 interface IProps {
   data?: GetAllUsersQuery
@@ -40,15 +42,21 @@ export const UsersTable = ({
   sortDirection,
 }: IProps) => {
   const [removeUser] = useMutation<{ removeUser?: boolean }, { userId: number }>(REMOVE_USER, {})
-  const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState<boolean>(false)
-  const [isBanUserModalOpen, setIsBanUserModalOpen] = useState<boolean>(false)
-  const [unBanModalOpen, setUnBanModalOpen] = useState<boolean>(false)
-  const [currentUserId, setCurrentUserId] = useState<null | number>(null)
+  const [currentUser, setCurrentUser] = useState<UserType | null>(null)
+  const [openedModal, setOpenedModal] = useState<{
+    name: ModalNames
+    open: boolean
+  }>({ name: '', open: false })
 
-  const handleDeleteUser = async (userId: number) => {
+  const closeModal = () => {
+    setOpenedModal({ name: '', open: false })
+    setCurrentUser(null)
+  }
+
+  const handleDeleteUser = async () => {
     try {
-      await removeUser({ variables: { userId } })
-      setIsDeleteUserModalOpen(false)
+      await removeUser({ variables: { userId: currentUser?.id as number } })
+      closeModal()
       refetch()
       toast.success('User deleted', { position: 'top-right' })
     } catch (error) {
@@ -59,35 +67,51 @@ export const UsersTable = ({
     }
   }
 
-  const showDeleteUserModal = (userId: number) => {
-    setCurrentUserId(userId)
-    setIsDeleteUserModalOpen(true)
+  const [unbanUser] = useMutation<{ unbanUser: boolean }, { userId: number }>(UNBAN_USER)
+
+  const handleUnbanUser = async () => {
+    try {
+      await unbanUser({ variables: { userId: currentUser?.id as number } })
+      toast.success('User unbanned successfully', { position: 'top-right' })
+      closeModal()
+      refetch()
+    } catch (error) {
+      toast.error('Failed to unban user', { position: 'top-right' })
+    }
   }
 
-  const closeDeleteUserModalHandler = () => {
-    setIsDeleteUserModalOpen(false)
-    setCurrentUserId(null)
+  const [banUser] = useMutation<{ banUser: boolean }, { banReason: string; userId: number }>(
+    BAN_USERS
+  )
+
+  const handleBanUser = async (banReason: string) => {
+    try {
+      await banUser({ variables: { banReason, userId: currentUser?.id as number } })
+      toast.success('User banned successfully', { position: 'top-right' })
+      closeModal()
+      refetch()
+    } catch (error) {
+      toast.error('Failed to ban user', { position: 'top-right' })
+    }
   }
 
-  const showBanUserModal = (userId: number) => {
-    setCurrentUserId(userId)
-    setIsBanUserModalOpen(true)
+  const showModal = (user: UserType, modalName: ModalNames) => {
+    setCurrentUser(user)
+    setOpenedModal({ name: modalName, open: true })
   }
 
-  const closeBanUserModalHandler = () => {
-    setIsBanUserModalOpen(false)
-    setCurrentUserId(null)
-  }
-
-  const showUnBanUserModal = (userId: number) => {
-    setCurrentUserId(userId)
-    setUnBanModalOpen(true)
-  }
-
-  const closeUnBanUserModalHandler = () => {
-    setUnBanModalOpen(false)
-    setCurrentUserId(null)
-  }
+  const modalTitle = (() => {
+    switch (openedModal.name) {
+      case 'delete':
+        return 'Delete user'
+      case 'ban':
+        return 'Ban user'
+      case 'unban':
+        return 'Unban user'
+      default:
+        return ''
+    }
+  })()
 
   if (loading) {
     return (
@@ -138,59 +162,23 @@ export const UsersTable = ({
                   <Popover.Portal>
                     <Popover.Content align={'end'} className={s.popoverContent} side={'bottom'}>
                       <Card className={s.cardWrap}>
-                        <div className={s.popoverItem} onClick={() => showDeleteUserModal(u.id)}>
+                        <div className={s.popoverItem} onClick={() => showModal(u, 'delete')}>
                           <EditUser />
                           Delete user
                         </div>
-                        <ViewUserModal
-                          isOpen={isDeleteUserModalOpen}
-                          onOpenChange={closeDeleteUserModalHandler}
-                        >
-                          {currentUserId && (
-                            <DeleteUserModal
-                              closeViewPostModalHandler={closeDeleteUserModalHandler}
-                              handleDeleteUser={handleDeleteUser}
-                              userId={currentUserId}
-                            />
-                          )}
-                        </ViewUserModal>
+
                         <div className={s.popoverItem}>
                           {u.userBan?.reason ? (
-                            <div className={s.iconWrap} onClick={() => showUnBanUserModal(u.id)}>
+                            <div className={s.iconWrap} onClick={() => showModal(u, 'unban')}>
                               <Unban /> Un-ban
                             </div>
                           ) : (
-                            <div className={s.iconWrap} onClick={() => showBanUserModal(u.id)}>
+                            <div className={s.iconWrap} onClick={() => showModal(u, 'ban')}>
                               <BlockIcon /> Ban in the system
                             </div>
                           )}
                         </div>
-                        <ViewUserModal
-                          isOpen={unBanModalOpen}
-                          onOpenChange={closeUnBanUserModalHandler}
-                        >
-                          {currentUserId && (
-                            <UnBanUserModal
-                              closeUnBanUserModalHandler={closeUnBanUserModalHandler}
-                              refetch={refetch}
-                              userId={currentUserId}
-                            />
-                          )}
-                        </ViewUserModal>
-                        <ModalWindow
-                          onOpenChange={closeBanUserModalHandler}
-                          open={isBanUserModalOpen}
-                          title={'Ban'}
-                        >
-                          {currentUserId !== null && (
-                            <ViewBanModal
-                              closeBanUserModalHandler={closeBanUserModalHandler}
-                              refetch={refetch}
-                              userId={currentUserId}
-                              userName={u.userName}
-                            />
-                          )}
-                        </ModalWindow>
+
                         <Link className={s.popoverItem} href={`${RouterPaths.USER}/${u.id}`}>
                           <EllipsisIcon />
                           More information
@@ -203,6 +191,32 @@ export const UsersTable = ({
             </Table.Row>
           ))}
         </Table.Body>
+      )}
+
+      {currentUser && (
+        <ModalWindow onOpenChange={closeModal} open={openedModal.open} title={modalTitle}>
+          {openedModal.name === 'ban' && (
+            <BanUserModal
+              handleBanUser={handleBanUser}
+              onCloseModal={closeModal}
+              userName={currentUser.userName}
+            />
+          )}
+          {openedModal.name === 'unban' && (
+            <UnBanUserModal
+              handleUnbanUser={handleUnbanUser}
+              onCloseModal={closeModal}
+              userName={currentUser.userName}
+            />
+          )}
+          {openedModal.name === 'delete' && (
+            <DeleteUserModal
+              handleDeleteUser={handleDeleteUser}
+              onCloseModal={closeModal}
+              userName={currentUser.userName}
+            />
+          )}
+        </ModalWindow>
       )}
     </Table.Root>
   )

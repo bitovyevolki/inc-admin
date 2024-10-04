@@ -1,41 +1,26 @@
 import { FC } from 'react'
-import { toast } from 'react-toastify'
 
-import { useMutation } from '@apollo/client'
 import { Button, Typography } from '@bitovyevolki/ui-kit-int'
 
 import s from './ViewUserModal.module.scss'
 
-import { UNBAN_USER } from '../../../api/user.unban'
+import { UserType } from '../../../model/types/users'
 
 export type UnBanUserModalProps = {
-  closeUnBanUserModalHandler: () => void
-  refetch: () => void
-  userId: number
+  handleUnbanUser: () => void
+  onCloseModal: () => void
+  userName: string
 }
 
 export const UnBanUserModal: FC<UnBanUserModalProps> = ({
-  closeUnBanUserModalHandler,
-  refetch,
-  userId,
+  handleUnbanUser,
+  onCloseModal,
+  userName,
 }) => {
-  const [unbanUser] = useMutation<{ unbanUser: boolean }, { userId: number }>(UNBAN_USER)
-
-  const handleUnbanUser = async () => {
-    try {
-      await unbanUser({ variables: { userId } })
-      toast.success('User unbanned successfully', { position: 'top-right' })
-      closeUnBanUserModalHandler()
-      refetch()
-    } catch (error) {
-      toast.error('Failed to unban user', { position: 'top-right' })
-    }
-  }
-
   return (
     <div className={s.card}>
       <Typography as={'p'} variant={'body1'}>
-        Are you sure you want to unban this user?
+        Are you sure you want to unban {userName}?
       </Typography>
       <div className={s.buttonsContainer}>
         <Button
@@ -45,7 +30,7 @@ export const UnBanUserModal: FC<UnBanUserModalProps> = ({
         >
           Yes
         </Button>
-        <Button onClick={() => closeUnBanUserModalHandler()}>No</Button>
+        <Button onClick={() => onCloseModal()}>No</Button>
       </div>
     </div>
   )

@@ -4,25 +4,27 @@ import { Button, Typography } from '@bitovyevolki/ui-kit-int'
 
 import s from './ViewUserModal.module.scss'
 
+import { UserType } from '../../../model/types/users'
+
 export type DeleteUserModalProps = {
-  closeViewPostModalHandler: () => void
-  handleDeleteUser: (userId: number) => void
-  userId: number
+  handleDeleteUser: () => void
+  onCloseModal: () => void
+  userName: string
 }
 
 export const DeleteUserModal: FC<DeleteUserModalProps> = ({
-  closeViewPostModalHandler,
   handleDeleteUser,
-  userId,
+  onCloseModal,
+  userName,
 }) => {
   return (
     <div className={s.card}>
       <Typography as={'p'} variant={'body1'}>
-        Are you sure you want to delete this user?
+        Are you sure you want to delete {userName}?
       </Typography>
       <div className={s.buttonsContainer}>
-        <Button onClick={() => handleDeleteUser(userId)}>Yes</Button>
-        <Button onClick={closeViewPostModalHandler}>No</Button>
+        <Button onClick={() => handleDeleteUser()}>Yes</Button>
+        <Button onClick={onCloseModal}>No</Button>
       </div>
     </div>
   )
