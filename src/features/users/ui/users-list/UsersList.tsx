@@ -1,6 +1,7 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import { InputMaybe, SortDirection, UserBlockStatus } from '@/src/gql/graphql'
+import { useDebounce } from '@/src/shared/hooks/use-debounce'
 import { useParamsHook } from '@/src/shared/hooks/useParamsHook'
 import { useQuery } from '@apollo/client'
 import { Input, Pagination, Select } from '@bitovyevolki/ui-kit-int'
@@ -23,7 +24,7 @@ export const UsersList = () => {
   const statusFilter = searchParams.get('statusFilter') ?? 'all'
 
   const [filterValue, setFilterValue] = useState(searchTerm)
-
+  const debouncedValue = useDebounce(filterValue, 500)
   const statusFilterValue = (() => {
     switch (statusFilter) {
       case 'blocked':
@@ -39,24 +40,12 @@ export const UsersList = () => {
     variables: {
       pageNumber: Number(page),
       pageSize: Number(pageSize),
-      searchTerm,
+      searchTerm: debouncedValue || '',
       sortBy,
       sortDirection,
       statusFilter: statusFilterValue,
     },
   })
-
-  useEffect(() => {
-    const timerId = setTimeout(() => {
-      if (filterValue !== null) {
-        changeQueryHandler({ page: 1, searchTerm: filterValue })
-      }
-    }, 500)
-
-    return () => {
-      clearTimeout(timerId)
-    }
-  }, [filterValue])
 
   const onSortChange = (column: string) => {
     const newDirection = sortBy === column && sortDirection === 'asc' ? 'desc' : 'asc'
