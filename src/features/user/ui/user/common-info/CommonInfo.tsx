@@ -19,7 +19,7 @@ interface IProps {
 export const CommonInfo = ({ userId }: IProps) => {
   const t = useTranslations('UserPage')
 
-  const { changeQueryHandler, searchParams } = useParamsHook()
+  const { changeQueryHandler, removeAllQueryParamHandler, searchParams } = useParamsHook()
 
   const contentType = searchParams.get('cont') ?? UserContentType.UPLOADED
 
@@ -31,7 +31,7 @@ export const CommonInfo = ({ userId }: IProps) => {
   ]
 
   const changeContentTypeHandler = (type: UserContentType | string) => {
-    changeQueryHandler({ cont: type })
+    changeQueryHandler({ cont: type }, ['page', 'pageSize', 'sortBy', 'sortDirection'])
   }
 
   return (

@@ -17,3 +17,9 @@
 .link {
   text-decoration: underline;
 }
+
+.sortableColumn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
