@@ -6,6 +6,7 @@ import { renderSortIcon } from '@/src/shared/utils/render-sort-icons/render-sort
 import { Table, Typography } from '@bitovyevolki/ui-kit-int'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 import s from './PaymentsTable.module.scss'
 
@@ -25,6 +26,8 @@ export const PaymentsTable = ({
   sortBy,
   sortDirection,
 }: PaymentsTableProps) => {
+  const t = useTranslations('PaymentList')
+
   if (loading) {
     return (
       <div className={s.loader}>
@@ -46,28 +49,28 @@ export const PaymentsTable = ({
         <Table.Row>
           <Table.HeadCell onClick={() => onSortChange('userName')}>
             <div className={s.sortableColumn}>
-              <Typography variant={'subTitle2'}>{'UserName'}</Typography>
+              <Typography variant={'subTitle2'}>{t('UserName')}</Typography>
               {renderSortIcon('userName', sortBy, sortDirection)}
             </div>
           </Table.HeadCell>
           <Table.HeadCell onClick={() => onSortChange('createdAt')}>
             <div className={s.sortableColumn}>
-              <Typography variant={'subTitle2'}>{'Date added'}</Typography>
+              <Typography variant={'subTitle2'}>{t('Date added')}</Typography>
               {renderSortIcon('createdAt', sortBy, sortDirection)}
             </div>
           </Table.HeadCell>
           <Table.HeadCell onClick={() => onSortChange('amount')}>
             <div className={s.sortableColumn}>
-              <Typography variant={'subTitle2'}>{'Amount, $'}</Typography>
+              <Typography variant={'subTitle2'}>{t('Amount, $')}</Typography>
               {renderSortIcon('amount', sortBy, sortDirection)}
             </div>
           </Table.HeadCell>
           <Table.HeadCell>
-            <Typography variant={'subTitle2'}>{'Subscription'}</Typography>
+            <Typography variant={'subTitle2'}>{t('Subscription')}</Typography>
           </Table.HeadCell>
           <Table.HeadCell onClick={() => onSortChange('paymentMethod')}>
             <div className={s.sortableColumn}>
-              <Typography variant={'subTitle2'}>{'Payment method'}</Typography>
+              <Typography variant={'subTitle2'}>{t('Payment method')}</Typography>
               {renderSortIcon('paymentMethod', sortBy, sortDirection)}
             </div>
           </Table.HeadCell>
@@ -98,7 +101,7 @@ export const PaymentsTable = ({
               <Typography variant={'body2'}>{payment.amount}$</Typography>
             </Table.Cell>
             <Table.Cell>
-              <Typography variant={'body2'}>{payment.type}</Typography>
+              <Typography variant={'body2'}>{t(payment.type)}</Typography>
             </Table.Cell>
             <Table.Cell>
               <Typography variant={'body2'}>{payment.paymentMethod}</Typography>

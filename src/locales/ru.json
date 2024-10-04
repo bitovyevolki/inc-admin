@@ -46,5 +46,16 @@
       "no-followers": "У пользователя еще нет подписчиков",
       "no-followings": "Пользователь еще ни на кого не подписан"
     }
+  },
+  "PaymentList": {
+    "Search by Username": "Поиск по имени пользователя",
+    "UserName": "Имя Пользователя",
+    "Date added": "Дата платежа",
+    "Amount, $": "Сумма, $",
+    "Subscription": "Подписка",
+    "Payment method": "Метод платежа",
+    "DAY": "День",
+    "WEEKLY": "Неделя",
+    "MONTHLY": "Месяц"
   }
 }
