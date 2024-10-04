@@ -16,11 +16,22 @@ export const useParamsHook = () => {
     return params.toString()
   }
 
-  const changeQueryHandler = (newParams: Record<string, number | string>) => {
+  const changeQueryHandler = (
+    newParams: Record<string, number | string>,
+    removeList?: string[]
+  ) => {
     const queryString = createQueryString(newParams)
 
-    router.push(`${pathname}?${queryString}`)
+    const finalQuery = new URLSearchParams(queryString)
+
+    removeList && removeList?.forEach(p => finalQuery.delete(p))
+
+    router.push(`${pathname}?${finalQuery}`)
   }
 
-  return { changeQueryHandler, searchParams }
+  const removeAllQueryParamHandler = () => {
+    router.replace({ pathname }, undefined, { shallow: true })
+  }
+
+  return { changeQueryHandler, removeAllQueryParamHandler, searchParams }
 }

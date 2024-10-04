@@ -5,7 +5,6 @@ export const GET_USER = gql(/* GraphQL */ `
     getUser(userId: $userId) {
       createdAt
       userName
-      email
       id
       profile {
         avatars {
@@ -29,8 +28,20 @@ export const GET_UPLOADED_FILES = gql(/* GraphQL */ `
 `)
 
 export const GET_PAYMENTS = gql(/* GraphQL */ `
-  query getPayments($userId: Int!, $pageSize: Int, $page: Int) {
-    getPaymentsByUser(userId: $userId, pageSize: $pageSize, pageNumber: $page) {
+  query getPayments(
+    $userId: Int!
+    $pageSize: Int
+    $page: Int
+    $sortBy: String
+    $sortDirection: SortDirection
+  ) {
+    getPaymentsByUser(
+      userId: $userId
+      pageSize: $pageSize
+      pageNumber: $page
+      sortBy: $sortBy
+      sortDirection: $sortDirection
+    ) {
       totalCount
       items {
         dateOfPayment
@@ -45,8 +56,20 @@ export const GET_PAYMENTS = gql(/* GraphQL */ `
 `)
 
 export const GET_FOLLOWERS = gql(/* GraphQL */ `
-  query getFollowers($userId: Int!, $pageSize: Int, $page: Int) {
-    getFollowers(userId: $userId, pageSize: $pageSize, pageNumber: $page) {
+  query getFollowers(
+    $userId: Int!
+    $pageSize: Int
+    $page: Int
+    $sortBy: String
+    $sortDirection: SortDirection
+  ) {
+    getFollowers(
+      userId: $userId
+      pageSize: $pageSize
+      pageNumber: $page
+      sortBy: $sortBy
+      sortDirection: $sortDirection
+    ) {
       totalCount
       items {
         id
@@ -59,8 +82,20 @@ export const GET_FOLLOWERS = gql(/* GraphQL */ `
 `)
 
 export const GET_FOLLOWING = gql(/* GraphQL */ `
-  query getFollowing($userId: Int!, $pageSize: Int, $page: Int) {
-    getFollowing(userId: $userId, pageSize: $pageSize, pageNumber: $page) {
+  query getFollowing(
+    $userId: Int!
+    $pageSize: Int
+    $page: Int
+    $sortBy: String
+    $sortDirection: SortDirection
+  ) {
+    getFollowing(
+      userId: $userId
+      pageSize: $pageSize
+      pageNumber: $page
+      sortBy: $sortBy
+      sortDirection: $sortDirection
+    ) {
       totalCount
       items {
         id

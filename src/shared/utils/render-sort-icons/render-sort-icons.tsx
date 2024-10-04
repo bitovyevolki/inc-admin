@@ -1,6 +1,6 @@
 import s from './render-sort-icons.module.scss'
 
-export const renderSortIcon = (column: string, sortBy: string, sortDirection: 'asc' | 'desc') => {
+export const renderSortIcon = <T,>(column: T, sortBy: string, sortDirection: 'asc' | 'desc') => {
   if (sortBy === column) {
     return (
       <div className={s.sortIcons}>

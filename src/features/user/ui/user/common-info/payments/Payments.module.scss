@@ -4,6 +4,7 @@
   flex-direction: column;
   gap: 30px;
   margin-top: 48px;
+  table-layout: fixed;
 }
 
 .loader {
@@ -12,4 +13,10 @@
   justify-content: center;
   width: 100%;
   margin-top: 40px;
+}
+
+.sortableColumn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
