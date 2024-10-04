@@ -46,5 +46,16 @@
       "no-followers": "The user doesn't have any followers yet",
       "no-followings": "The user has not subscribed to anyone yet"
     }
+  },
+  "PaymentList": {
+    "Search by Username": "Search by Username",
+    "UserName": "UserName",
+    "Date added": "Date added",
+    "Amount, $": "Amount, $",
+    "Subscription": "Subscription",
+    "Payment method": "Payment method",
+    "DAY": "DAY",
+    "WEEKLY": "WEEKLY",
+    "MONTHLY": "MONTHLY"
   }
 }

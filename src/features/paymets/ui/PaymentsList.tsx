@@ -7,9 +7,11 @@ import { useDebounce } from '@/src/shared/hooks/use-debounce'
 import { useParamsHook } from '@/src/shared/hooks/useParamsHook'
 import { useQuery } from '@apollo/client'
 import { Input, Pagination } from '@bitovyevolki/ui-kit-int'
+import { useTranslations } from 'next-intl'
 
 import s from './PaymentsList.module.scss'
 export const PaymentsList = () => {
+  const t = useTranslations('PaymentList')
   const { changeQueryHandler, searchParams } = useParamsHook()
 
   const page = searchParams.get('page') ?? 1
@@ -60,6 +62,7 @@ export const PaymentsList = () => {
         <Input
           clear={handleOnSearchClear}
           onChange={handleOnSearchChange}
+          placeholder={t('Search by Username')}
           type={'search'}
           value={searchValue || ''}
         />
