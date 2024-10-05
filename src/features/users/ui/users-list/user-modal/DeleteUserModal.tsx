@@ -22,7 +22,7 @@ export const DeleteUserModal: FC<DeleteUserModalProps> = ({
 
   return (
     <div className={s.card}>
-      <Typography as={'p'} variant={'body1'}>
+      <Typography variant={'body1'}>
         {t('Are you sure you want to delete')} {userName}?
       </Typography>
       <div className={s.buttonsContainer}>

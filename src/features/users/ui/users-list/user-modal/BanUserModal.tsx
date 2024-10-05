@@ -16,32 +16,32 @@ export type BanUserModalProps = {
 export const BanUserModal: FC<BanUserModalProps> = ({ handleBanUser, onCloseModal, userName }) => {
   const t = useTranslations('UsersTable')
   const [selectedReason, setSelectedReason] = useState<string>('bad_behavior')
-
+  const options = [
+    {
+      label: t('Bad behavior'),
+      value: 'bad_behavior',
+    },
+    {
+      label: t('Advertising placement'),
+      value: 'advertising_placement',
+    },
+    {
+      label: t('Another reason'),
+      value: 'another_reason',
+    },
+  ]
   const handleSelectChange = (value: string) => {
     setSelectedReason(value)
   }
 
   return (
     <div className={s.card}>
-      <Typography variant={'body2'}>
+      <Typography variant={'body1'}>
         {t('Are you sure you want to ban user')} ${userName}?
       </Typography>
       <Select
         onChange={handleSelectChange}
-        options={[
-          {
-            label: t('Bad behavior'),
-            value: 'bad_behavior',
-          },
-          {
-            label: t('Advertising placement'),
-            value: 'advertising_placement',
-          },
-          {
-            label: t('Another reason'),
-            value: 'another_reason',
-          },
-        ]}
+        options={options}
         value={selectedReason}
         variant={'large'}
       />
