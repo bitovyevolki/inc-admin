@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 
 import { Button, Select, Typography } from '@bitovyevolki/ui-kit-int'
+import { useTranslations } from 'next-intl'
 
 import s from './ViewUserModal.module.scss'
 
@@ -13,6 +14,7 @@ export type BanUserModalProps = {
 }
 
 export const BanUserModal: FC<BanUserModalProps> = ({ handleBanUser, onCloseModal, userName }) => {
+  const t = useTranslations('UsersTable')
   const [selectedReason, setSelectedReason] = useState<string>('bad_behavior')
 
   const handleSelectChange = (value: string) => {
@@ -21,20 +23,22 @@ export const BanUserModal: FC<BanUserModalProps> = ({ handleBanUser, onCloseModa
 
   return (
     <div className={s.card}>
-      <Typography variant={'body2'}>Are you sure you want to ban this user {userName}? </Typography>
+      <Typography variant={'body2'}>
+        {t('Are you sure you want to ban user')} ${userName}?
+      </Typography>
       <Select
         onChange={handleSelectChange}
         options={[
           {
-            label: 'Bad behavior',
+            label: t('Bad behavior'),
             value: 'bad_behavior',
           },
           {
-            label: 'Advertising placement',
+            label: t('Advertising placement'),
             value: 'advertising_placement',
           },
           {
-            label: 'Another reason',
+            label: t('Another reason'),
             value: 'another_reason',
           },
         ]}
@@ -47,10 +51,10 @@ export const BanUserModal: FC<BanUserModalProps> = ({ handleBanUser, onCloseModa
             onCloseModal()
           }}
         >
-          No
+          {t('No')}
         </Button>
         <Button onClick={() => handleBanUser(selectedReason)} variant={'outlined'}>
-          Yes
+          {t('Yes')}
         </Button>
       </div>
     </div>
