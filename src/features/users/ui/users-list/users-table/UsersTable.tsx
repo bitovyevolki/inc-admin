@@ -11,7 +11,7 @@ import { RoundLoader } from '@/src/shared/ui/RouterLoader/RoundLoader'
 import { getDateViewWithDots } from '@/src/shared/utils/date'
 import { renderSortIcon } from '@/src/shared/utils/render-sort-icons/render-sort-icons'
 import { useMutation } from '@apollo/client'
-import { Card, ModalWindow, Table } from '@bitovyevolki/ui-kit-int'
+import { Card, ModalWindow, Table, Typography } from '@bitovyevolki/ui-kit-int'
 import * as Popover from '@radix-ui/react-popover'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
@@ -60,12 +60,9 @@ export const UsersTable = ({
       await removeUser({ variables: { userId: currentUser?.id as number } })
       closeModal()
       refetch()
-      toast.success('User deleted', { position: 'top-right' })
+      toast.success(t('User deleted'))
     } catch (error) {
-      toast.error('Error deleting user'),
-        {
-          position: 'top-right',
-        }
+      toast.error(t('Error deleting user'))
     }
   }
 
@@ -74,11 +71,11 @@ export const UsersTable = ({
   const handleUnbanUser = async () => {
     try {
       await unbanUser({ variables: { userId: currentUser?.id as number } })
-      toast.success('User unbanned successfully', { position: 'top-right' })
+      toast.success(t('User unbanned successfully'))
       closeModal()
       refetch()
     } catch (error) {
-      toast.error('Failed to unban user', { position: 'top-right' })
+      toast.error(t('Failed to unban user'))
     }
   }
 
@@ -89,11 +86,11 @@ export const UsersTable = ({
   const handleBanUser = async (banReason: string) => {
     try {
       await banUser({ variables: { banReason, userId: currentUser?.id as number } })
-      toast.success('User banned successfully', { position: 'top-right' })
+      toast.success(t('User banned successfully'))
       closeModal()
       refetch()
     } catch (error) {
-      toast.error('Failed to ban user', { position: 'top-right' })
+      toast.error(t('Failed to ban user'))
     }
   }
 
@@ -155,9 +152,17 @@ export const UsersTable = ({
               <Table.Cell className={u.userBan?.reason && s.cellWithIcon}>
                 {u.userBan?.reason && <BlockIcon />} <span>{u.id}</span>
               </Table.Cell>
-              <Table.Cell>{u.userName}</Table.Cell>
-              <Table.Cell>{u.userName}</Table.Cell>
-              <Table.Cell>{getDateViewWithDots(u.createdAt)}</Table.Cell>
+              <Table.Cell>
+                <Typography variant={'body2'}>{u.userName}</Typography>{' '}
+              </Table.Cell>
+              <Table.Cell>
+                <Typography as={'a'} href={`${RouterPaths.USER}/${u.id}`} variant={'body2'}>
+                  {u.userName}
+                </Typography>
+              </Table.Cell>
+              <Table.Cell>
+                <Typography variant={'body2'}>{getDateViewWithDots(u.createdAt)}</Typography>{' '}
+              </Table.Cell>
               <Table.Cell className={s.menuCell}>
                 <Popover.Root>
                   <Popover.Trigger asChild>

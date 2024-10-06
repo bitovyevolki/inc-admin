@@ -10,6 +10,7 @@ import { NextPage } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 
 import '@/src/shared/styles/globals.scss'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Layout } from '../shared/ui/layout/Layout'
 

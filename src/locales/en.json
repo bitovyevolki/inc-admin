@@ -74,6 +74,12 @@
     "Bad behavior": "Bad behavior",
     "Advertising placement": "Advertising placement",
     "Another reason": "Another reason",
-    "Are you sure you want to delete": "Are you sure you want to delete"
+    "Are you sure you want to delete": "Are you sure you want to delete",
+    "Error deleting user": "Error deleting user",
+    "User deleted":  "User deleted",
+    "User unbanned successfully":  "User unbanned successfully",
+    "Failed to unban user": "Failed to unban user",
+    "User banned successfully": "User banned successfully",
+    "Failed to ban user": "Failed to ban user"
   }
 }
