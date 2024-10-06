@@ -74,6 +74,12 @@
     "Bad behavior": "Некорректное поведение",
     "Advertising placement": "Размещение рекламы",
     "Another reason": "Другая причина",
-    "Are you sure you want to delete": "Вы уверены что хотите удалить пользователя"
+    "Are you sure you want to delete": "Вы уверены что хотите удалить пользователя",
+    "Error deleting user": "Ошибка при удалении пользователя",
+    "User deleted":  "Пользователь удален",
+    "User unbanned successfully":  "Пользователь разблокирован",
+    "Failed to unban user": "Не удалось разблокировать пользователя",
+    "User banned successfully": "Пользователь заблокирован",
+    "Failed to ban user": "Не удалось заблокировать пользователя"
   }
 }

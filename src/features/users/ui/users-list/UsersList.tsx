@@ -117,14 +117,16 @@ export const UsersList = () => {
         sortDirection={sortDirection as 'asc' | 'desc'}
       />
 
-      {totalCount && (
-        <Pagination
-          onChangePage={onChangePageHandler}
-          onChangePortionSize={onChangePageSizeHandler}
-          page={Number(page)}
-          portionSize={Number(pageSize)}
-          totalCount={totalCount}
-        />
+      {totalCount && totalCount > 0 && (
+        <div className={s.pagination}>
+          <Pagination
+            onChangePage={onChangePageHandler}
+            onChangePortionSize={onChangePageSizeHandler}
+            page={Number(page)}
+            portionSize={Number(pageSize)}
+            totalCount={totalCount}
+          />
+        </div>
       )}
     </div>
   )
