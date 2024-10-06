@@ -57,5 +57,23 @@
     "DAY": "DAY",
     "WEEKLY": "WEEKLY",
     "MONTHLY": "MONTHLY"
+  },
+  "UsersTable" : {
+    "User ID": "User ID",
+    "Username": "UserName",
+    "Date added": "Date added",
+    "Profile link": "Profile link",
+    "Delete user": "Delete user",
+    "Ban in the system": "Ban in the system",
+    "Ban user": "Ban user",
+    "Unban user": "Unban user",
+    "More information": "More information",
+    "Are you sure you want to ban user": "Are you sure you want to ban user",
+    "No": "No",
+    "Yes": "Yes",
+    "Bad behavior": "Bad behavior",
+    "Advertising placement": "Advertising placement",
+    "Another reason": "Another reason",
+    "Are you sure you want to delete": "Are you sure you want to delete"
   }
 }

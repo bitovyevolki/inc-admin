@@ -14,6 +14,7 @@ import { useMutation } from '@apollo/client'
 import { Card, ModalWindow, Table } from '@bitovyevolki/ui-kit-int'
 import * as Popover from '@radix-ui/react-popover'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 import s from './Userstable.module.scss'
 
@@ -41,6 +42,7 @@ export const UsersTable = ({
   sortBy,
   sortDirection,
 }: IProps) => {
+  const t = useTranslations('UsersTable')
   const [removeUser] = useMutation<{ removeUser?: boolean }, { userId: number }>(REMOVE_USER, {})
   const [currentUser, setCurrentUser] = useState<UserType | null>(null)
   const [openedModal, setOpenedModal] = useState<{
@@ -103,11 +105,11 @@ export const UsersTable = ({
   const modalTitle = (() => {
     switch (openedModal.name) {
       case 'delete':
-        return 'Delete user'
+        return t('Delete user')
       case 'ban':
-        return 'Ban user'
+        return t('Ban user')
       case 'unban':
-        return 'Unban user'
+        return t('Unban user')
       default:
         return ''
     }
@@ -129,16 +131,18 @@ export const UsersTable = ({
     <Table.Root className={s.userTable}>
       <Table.Head>
         <Table.Row>
-          <Table.HeadCell>User ID</Table.HeadCell>
+          <Table.HeadCell>{t('User ID')}</Table.HeadCell>
           <Table.HeadCell onClick={() => onSortChange('userName')}>
             <div className={s.sortableColumn}>
-              Username{renderSortIcon('userName', sortBy, sortDirection)}
+              {t('Username')}
+              {renderSortIcon('userName', sortBy, sortDirection)}
             </div>
           </Table.HeadCell>
-          <Table.HeadCell>Profile link</Table.HeadCell>
+          <Table.HeadCell>{t('Profile link')}</Table.HeadCell>
           <Table.HeadCell onClick={() => onSortChange('createdAt')}>
             <div className={s.sortableColumn}>
-              Date added{renderSortIcon('createdAt', sortBy, sortDirection)}
+              {t('Date added')}
+              {renderSortIcon('createdAt', sortBy, sortDirection)}
             </div>
           </Table.HeadCell>
           <Table.HeadCell></Table.HeadCell>
@@ -164,24 +168,24 @@ export const UsersTable = ({
                       <Card className={s.cardWrap}>
                         <div className={s.popoverItem} onClick={() => showModal(u, 'delete')}>
                           <EditUser />
-                          Delete user
+                          {t('Delete user')}
                         </div>
 
                         <div className={s.popoverItem}>
                           {u.userBan?.reason ? (
                             <div className={s.iconWrap} onClick={() => showModal(u, 'unban')}>
-                              <Unban /> Un-ban
+                              <Unban /> {t('Unban user')}
                             </div>
                           ) : (
                             <div className={s.iconWrap} onClick={() => showModal(u, 'ban')}>
-                              <BlockIcon /> Ban in the system
+                              <BlockIcon /> {t('Ban in the system')}
                             </div>
                           )}
                         </div>
 
                         <Link className={s.popoverItem} href={`${RouterPaths.USER}/${u.id}`}>
                           <EllipsisIcon />
-                          More information
+                          {t('More information')}
                         </Link>
                       </Card>
                     </Popover.Content>

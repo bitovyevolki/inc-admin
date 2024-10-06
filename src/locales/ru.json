@@ -57,5 +57,23 @@
     "DAY": "День",
     "WEEKLY": "Неделя",
     "MONTHLY": "Месяц"
+  },
+  "UsersTable" : {
+    "User ID": "ID Пользвателя",
+    "Username": "Имя Пользвателя",
+    "Date added": "Дата регистрации",
+    "Profile link": "Ссылка на профиль",
+    "Delete user": "Удалить пользователя",
+    "Ban in the system": "Заблокировать пользователя",
+    "More information": "Больше информации",
+    "Ban user": "Заблокировать пользователя",
+    "Unban user": "Разблокировать пользоватля",
+    "Are you sure you want to ban user": "Вы уверены что хотите заблокировать пользователя",
+    "No": "Нет",
+    "Yes": "Да",
+    "Bad behavior": "Некорректное поведение",
+    "Advertising placement": "Размещение рекламы",
+    "Another reason": "Другая причина",
+    "Are you sure you want to delete": "Вы уверены что хотите удалить пользователя"
   }
 }
