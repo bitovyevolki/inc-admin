@@ -18,6 +18,7 @@
   },
   "UserPage": {
     "to-users-list": "Back to users list",
+    "to-previous-page": "Back to previous page",
     "id": "UserID",
     "creation-date": "Profile Creation Date",
     "uploaded": "Uploaded files",

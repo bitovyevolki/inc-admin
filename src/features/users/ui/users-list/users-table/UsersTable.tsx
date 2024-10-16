@@ -14,6 +14,7 @@ import { useMutation } from '@apollo/client'
 import { Card, ModalWindow, Table, Typography } from '@bitovyevolki/ui-kit-int'
 import * as Popover from '@radix-ui/react-popover'
 import Link from 'next/link'
+import router from 'next/router'
 import { useTranslations } from 'next-intl'
 
 import s from './Userstable.module.scss'
@@ -156,7 +157,11 @@ export const UsersTable = ({
                 <Typography variant={'body2'}>{u.userName}</Typography>{' '}
               </Table.Cell>
               <Table.Cell>
-                <Typography as={'a'} href={`${RouterPaths.USER}/${u.id}`} variant={'body2'}>
+                <Typography
+                  as={'a'}
+                  href={`${RouterPaths.USER}/${u.id}?from=${encodeURIComponent(router.asPath)}`}
+                  variant={'body2'}
+                >
                   {u.userName}
                 </Typography>
               </Table.Cell>
