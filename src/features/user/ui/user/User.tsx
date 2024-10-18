@@ -29,13 +29,20 @@ export const User = () => {
     userData?.profile.avatars && userData?.profile.avatars.length > 0
       ? userData?.profile?.avatars[0].url
       : ''
+  const getNameForBackButton = (fromUrl: string) => {
+    if (fromUrl === '/posts') {
+      return t('to-postsList')
+    } else {
+      return t('to-users-list')
+    }
+  }
 
   return (
     <div className={s.user}>
       <div className={s.main}>
         <Button className={s.backArrowBox} onClick={backHandler} variant={'ghost'}>
           <ArrowBackIcon />
-          <Typography variant={'body1'}>{t('to-previous-page')}</Typography>
+          <Typography variant={'body1'}>{getNameForBackButton(fromUrl)}</Typography>
         </Button>
         <PersonalInfo
           avatar={avatar}

@@ -58,6 +58,7 @@ export const Payments = ({ userId }: IProps) => {
   }
 
   const payments = data?.getPaymentsByUser.items
+  const totalCount = data?.getPaymentsByUser?.totalCount
 
   const isHasPayments = payments && payments.length > 0
 
@@ -75,7 +76,7 @@ export const Payments = ({ userId }: IProps) => {
 
   if (!isHasPayments) {
     return (
-      <div className={s.centerBox}>
+      <div className={s.noPayments}>
         <Typography variant={'h2'}>{t('no-payments')}</Typography>
       </div>
     )
@@ -128,13 +129,17 @@ export const Payments = ({ userId }: IProps) => {
           ))}
         </Table.Body>
       </Table.Root>
-      <Pagination
-        onChangePage={onChangePageHandler}
-        onChangePortionSize={onChangePageSizeHandler}
-        page={Number(page)}
-        portionSize={Number(pageSize)}
-        totalCount={data.getPaymentsByUser.totalCount}
-      />
+      {totalCount && totalCount > 0 && (
+        <div className={s.pagination}>
+          <Pagination
+            onChangePage={onChangePageHandler}
+            onChangePortionSize={onChangePageSizeHandler}
+            page={Number(page)}
+            portionSize={Number(pageSize)}
+            totalCount={totalCount}
+          />
+        </div>
+      )}
     </div>
   )
 }

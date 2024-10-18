@@ -17,7 +17,8 @@
     }
   },
   "UserPage": {
-    "to-users-list": "Back to users list",
+    "to-users-list": "Back to Users list",
+    "to-postsList": "Back to Posts list",
     "to-previous-page": "Back to previous page",
     "id": "UserID",
     "creation-date": "Profile Creation Date",
