@@ -54,6 +54,7 @@ export const Following = ({ userId }: IProps) => {
   }
 
   const following = data?.getFollowing.items
+  const totalCount = data?.getFollowing.totalCount
 
   const isHasFollowing = following && following.length > 0
 
@@ -71,7 +72,7 @@ export const Following = ({ userId }: IProps) => {
 
   if (!isHasFollowing) {
     return (
-      <div className={s.centerBox}>
+      <div className={s.noFollowings}>
         <Typography variant={'h2'}>{t('no-followings')}</Typography>
       </div>
     )
@@ -119,13 +120,17 @@ export const Following = ({ userId }: IProps) => {
           ))}
         </Table.Body>
       </Table.Root>
-      <Pagination
-        onChangePage={onChangePageHandler}
-        onChangePortionSize={onChangePageSizeHandler}
-        page={Number(page)}
-        portionSize={Number(pageSize)}
-        totalCount={data.getFollowing.totalCount}
-      />
+      {totalCount && totalCount > 0 && (
+        <div className={s.pagination}>
+          <Pagination
+            onChangePage={onChangePageHandler}
+            onChangePortionSize={onChangePageSizeHandler}
+            page={Number(page)}
+            portionSize={Number(pageSize)}
+            totalCount={totalCount}
+          />
+        </div>
+      )}
     </div>
   )
 }
